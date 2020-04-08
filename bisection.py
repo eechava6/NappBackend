@@ -3,7 +3,7 @@
 from function import f
 
 
-def biseccion(a, b, tolerance, max_iterators):
+def bisection(a, b, tolerance, max_iterators):
     return_list = []
 
     a_evaluated_f = float(f(a))
@@ -25,7 +25,14 @@ def biseccion(a, b, tolerance, max_iterators):
         y_middle = float(f(x_middle))
 
         error = tolerance + 1
-
+        row = {
+                'x' : count,
+                'a' : a,
+                'b' : b, 
+                'x_middle': x_middle,
+                'y_middle': y_middle,
+                'error': 0
+        }
         return_list.append([count, a, b, x_middle, y_middle, 0])
 
         while error > tolerance and y_middle != 0 and count < max_iterators:
@@ -48,32 +55,17 @@ def biseccion(a, b, tolerance, max_iterators):
             error = abs(x_middle - aux_middle)
 
             count += 1
-
-            return_list.append([count, a, b, x_middle, y_middle, error])
+            row = {
+                'x' : count,
+                'a' : a,
+                'b' : b, 
+                'x_middle': x_middle,
+                'y_middle': y_middle,
+                'error': error
+            }
+            return_list.append(row)
 
     return return_list
 
 
-def main():
-    print("ingrese a")
-    a = input()
-    print("ingrese b")
-    b = input()
-    print("ingrese tolerancia")
-    tolerancia = input()
-    print(tolerancia)
-    print("ingrese repeticiones")
-    repeticiones = input()
-
-    tabla = biseccion(a, b, tolerancia, repeticiones)
-
-
-    i=0
-    while i < len(tabla):
-        print(" | "+str(tabla[i][0])+" | "+str(tabla[i][1])+" | "+str(tabla[i][2])+" | "+str(tabla[i][3])+" | "+str(tabla[i][4])+" | "+str(tabla[i][5])+" | ")
-        i += 1
-
-
-if __name__ == "__main__":
-    main()
 
