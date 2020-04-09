@@ -1,8 +1,8 @@
 import math
 
-def f(x): return x-2.35
+def f(x): return pow(x,2)-(3*x)-4
 
-def df(x): return 2 * x
+def df(x): return (2*x)-3
 
 def segundaDF(x): return 2
 

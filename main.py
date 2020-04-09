@@ -1,5 +1,6 @@
 from incrementalSearch import incrementalSearch
 from bisection import bisection
+from newton import newton
 import inspect 
 
 
@@ -11,14 +12,20 @@ def bicOpt():
     args = inspect.getfullargspec(bisection)[0]
     return bisection(*defineParams(args))
 
+def newtonOpt():
+    args = inspect.getfullargspec(newton)[0]
+    return newton(*defineParams(args))
+
 def main():
     print('1 for incremental search\n'
-    '2 for bisection')
+    '2 for bisection\n'
+    '3 for newton\n')
     option = int(input())
     
     switch = {
         1: incOpt,
-        2: bicOpt
+        2: bicOpt,
+        3: newtonOpt
     }
 
     func = switch.get(option, lambda: "Invalid month")
