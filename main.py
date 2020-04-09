@@ -1,6 +1,7 @@
 from incrementalSearch import incrementalSearch
 from bisection import bisection
 from newton import newton
+from falseRule import falseRule
 import inspect 
 
 
@@ -16,16 +17,24 @@ def newtonOpt():
     args = inspect.getfullargspec(newton)[0]
     return newton(*defineParams(args))
 
+def falseOpt(): 
+    args = inspect.getfullargspec(falseRule)[0]
+    return falseRule(*defineParams(args))
+
+
 def main():
     print('1 for incremental search\n'
     '2 for bisection\n'
-    '3 for newton\n')
+    '3 for newton\n'
+    '4 for false rule')
+
     option = int(input())
     
     switch = {
         1: incOpt,
         2: bicOpt,
-        3: newtonOpt
+        3: newtonOpt,
+        4: falseOpt
     }
 
     func = switch.get(option, lambda: "Invalid month")
