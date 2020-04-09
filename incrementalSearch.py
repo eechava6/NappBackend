@@ -1,7 +1,8 @@
 from function import f
 import numpy as np
 
-def incrementalSearch (start, step, stop, decimals = 4):
+def incrementalSearch (start, step, stop):
+    decimals = 4
     return_list = []
     evaluated = f(start)
     points = np.arange(start,stop,step)
