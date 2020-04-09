@@ -33,7 +33,7 @@ def bisection(a, b, tolerance, max_iterators):
                 'y_middle': y_middle,
                 'error': 0
         }
-        return_list.append([count, a, b, x_middle, y_middle, 0])
+        return_list.append(row)
 
         while error > tolerance and y_middle != 0 and count < max_iterators:
 

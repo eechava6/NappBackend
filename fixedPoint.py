@@ -1,38 +1,36 @@
 from function import f
+from function import g
 import numpy as np
 import math
 
-def falseRule (xi,xs,tol,max_iter):
-    xr = evaluateFunction(xi,xs)
-    f_xr = f(xr)
+def fixedPoint (xi,tol,max_iter):
+    f_xi = f(xi)
+    g_xi = g(xi)
     return_list = []
     return_list.append({
             'xi': xi,
-            'xs' : xs,
-            'xr': xr,
-            'f(xr)': f_xr,
+            'g(xi)':g_xi,
+            'f(xi)': f_xi,
             'error':'NA'
             })
     count = 1
     error = tol + 1 
     while error > tol and count <= max_iter:
-        xi = xr if (f_xr < 0) else xi
-        xs = xr if (f_xr > 0) else xs
-        tempXr = xr
-        xr = evaluateFunction( xi, xs)
-        error = abs(xr - tempXr)
-        f_xr = f(xr)
-        
+        xn = g_xi
+        g_xi = g(xn)
+        f_xi = f(xn)
+        error = abs(xn-xi)
+        xi = xn
         row = {
             'iter' : count,
             'xi': xi,
-            'xs' : xs,
-            'xr': xr,
-            'f(xr)': f_xr,
+            'g(xi)':g_xi,
+            'f(xi)': f_xi,
             'error': error
             }
         return_list.append(row)
-        if(f_xr == 0):
+        print(f_xi)
+        if(f_xi == 0):
             return_list.append({'status':'Root found! ;)'})
             return return_list
         elif(error < tol):
@@ -45,8 +43,6 @@ def falseRule (xi,xs,tol,max_iter):
 
     return return_list
 
-def evaluateFunction(xi,xs):
-    return xi - ((f(xi)*(xs-xi))/(f(xs)-f(xi)))
 
 
 

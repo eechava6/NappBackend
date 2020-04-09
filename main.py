@@ -2,6 +2,8 @@ from incrementalSearch import incrementalSearch
 from bisection import bisection
 from newton import newton
 from falseRule import falseRule
+from fixedPoint import fixedPoint
+
 import inspect 
 
 
@@ -21,23 +23,28 @@ def falseOpt():
     args = inspect.getfullargspec(falseRule)[0]
     return falseRule(*defineParams(args))
 
+def fixedOpt():
+    args = inspect.getfullargspec(fixedPoint)[0]
+    return fixedPoint(*defineParams(args))
 
 def main():
     print('1 for incremental search\n'
     '2 for bisection\n'
-    '3 for newton\n'
-    '4 for false rule')
+    '3 for false rule\n'
+    '4 for newton\n'
+    '5 for fixed point')
 
     option = int(input())
     
     switch = {
         1: incOpt,
         2: bicOpt,
-        3: newtonOpt,
-        4: falseOpt
+        3: falseOpt,
+        4: newtonOpt,
+        5: fixedOpt
     }
 
-    func = switch.get(option, lambda: "Invalid month")
+    func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
     showTable(func())
 
 
@@ -49,6 +56,7 @@ def defineParams(params):
     return values
 
 def showTable(table):
+    print('iter | ' ,end =" ")
     for key in table[0].keys():
         print('%s | ' % (key) ,end =" ")
     print('')
