@@ -5,11 +5,18 @@ def incrementalSearch (start, step, stop):
     decimals = 4
     return_list = []
     evaluated = f(start)
-    points = np.arange(start,stop,step)
+    return_list.append({
+            'x': start,
+            'f(x)' : evaluated,
+            'root': 'NA',
+            'f(a)*f(b)': 'NA',
+            'range':'NA'
+            })
+    points = np.arange(start+step,stop,step)
 
     for point in points:
         mult = float(evaluated * f(point))
-        root = True if evaluated < 0 else False 
+        root = True if mult < 0 else False 
         row = {
             'x': point,
             'f(x)' : round(f(point), decimals),
