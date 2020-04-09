@@ -1,5 +1,6 @@
 from incrementalSearch import incrementalSearch
 from bisection import bisection
+from falseRule import falseRule
 import inspect 
 
 
@@ -11,14 +12,20 @@ def bicOpt():
     args = inspect.getfullargspec(bisection)[0]
     return bisection(*defineParams(args))
 
+def falseOpt(): 
+    args = inspect.getfullargspec(falseRule)[0]
+    return falseRule(*defineParams(args))
+
 def main():
     print('1 for incremental search\n'
-    '2 for bisection')
+    '2 for bisection\n'
+    '3 for false rule')
     option = int(input())
     
     switch = {
         1: incOpt,
-        2: bicOpt
+        2: bicOpt,
+        3: falseOpt
     }
 
     func = switch.get(option, lambda: "Invalid month")
