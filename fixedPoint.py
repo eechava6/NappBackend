@@ -30,7 +30,6 @@ def fixedPoint (xi,tol,max_iter):
             'error': error
             }
         return_list.append(row)
-        print(f_xi)
         if(f_xi == 0):
             return_list.append({'status':'Root found! ;)'})
             return return_list

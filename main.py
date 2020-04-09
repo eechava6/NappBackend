@@ -3,7 +3,7 @@ from bisection import bisection
 from newton import newton
 from falseRule import falseRule
 from fixedPoint import fixedPoint
-
+from multipleRoots import multipleRoots
 import inspect 
 
 
@@ -27,12 +27,17 @@ def fixedOpt():
     args = inspect.getfullargspec(fixedPoint)[0]
     return fixedPoint(*defineParams(args))
 
+def multipleOpt():
+    args = inspect.getfullargspec(multipleRoots)[0]
+    return multipleRoots(*defineParams(args))    
+
 def main():
     print('1 for incremental search\n'
     '2 for bisection\n'
     '3 for false rule\n'
     '4 for newton\n'
-    '5 for fixed point')
+    '5 for fixed point\n'
+    '7 for multiple roots\n')
 
     option = int(input())
     
@@ -41,7 +46,8 @@ def main():
         2: bicOpt,
         3: falseOpt,
         4: newtonOpt,
-        5: fixedOpt
+        5: fixedOpt,
+        7: multipleOpt
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
