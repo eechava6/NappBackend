@@ -5,7 +5,7 @@ from falseRule import falseRule
 from fixedPoint import fixedPoint
 from multipleRoots import multipleRoots
 import inspect 
-
+import pandas as pd
 
 def incOpt():
     args = inspect.getfullargspec(incrementalSearch)[0]
@@ -62,13 +62,7 @@ def defineParams(params):
     return values
 
 def showTable(table):
-    for key in table[0].keys():
-        print('%s | ' % (key) ,end =" ")
-    print('')
-    for row in table:
-        for value in row.values():
-            print('%s | ' % (value) ,end =" ")
-        print('')
+    print(pd.DataFrame(table).to_string(index=False))
 
 if __name__ == "__main__":
     main()
