@@ -56,7 +56,6 @@ def defineParams(params):
     return values
 
 def showTable(table):
-    print('iter | ' ,end =" ")
     for key in table[0].keys():
         print('%s | ' % (key) ,end =" ")
     print('')

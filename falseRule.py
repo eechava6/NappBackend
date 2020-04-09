@@ -7,6 +7,7 @@ def falseRule (xi,xs,tol,max_iter):
     f_xr = f(xr)
     return_list = []
     return_list.append({
+            'iter': 0,
             'xi': xi,
             'xs' : xs,
             'xr': xr,

@@ -8,6 +8,7 @@ def fixedPoint (xi,tol,max_iter):
     g_xi = g(xi)
     return_list = []
     return_list.append({
+            'iter':0,
             'xi': xi,
             'g(xi)':g_xi,
             'f(xi)': f_xi,
