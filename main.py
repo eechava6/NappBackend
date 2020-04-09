@@ -59,10 +59,16 @@ def defineParams(params):
     for param in params:
         print('Enter %s ' % (param)) 
         values.append(float(input()))
+    print('')
     return values
 
 def showTable(table):
+    result = ""
+    if('status' in table[-1]):
+        result = table[-1]
+        table.pop()
     print(pd.DataFrame(table).to_string(index=False))
+    print(result)
 
 if __name__ == "__main__":
     main()
