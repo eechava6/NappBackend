@@ -3,24 +3,32 @@ import numpy as np
 import pandas as pd
 from function import regresiveSustitution
 from function import rowOps
+from function import getMultipliers
+
+def swapRows(A,nCol,mInd,indexes):
+    A[[nCol, mInd+nCol]] = A[[mInd+nCol , nCol]]
+    indexes[nCol], indexes[mInd+nCol] = indexes[mInd+nCol], indexes[nCol] 
+    return A,indexes
 
 def partialPivot(A):
     pivots = []
     A = np.array(A).astype(float)
-    pivots.append(A)
     times = A[:,0].size-1
+    indexes = np.arange(0,times+1)
+    print(indexes)
     for nCol in range(0,times):
         absCol = np.absolute(A[nCol:,nCol])
-        mVal = np.argmax(absCol)
+        mVal = np.amax(absCol)
+        #Validates if there a is biggest number than A[i][i] and swap rows
         if(A[nCol][nCol] < mVal):
-            A[[nCol, mVal+nCol]] = A[[mVal+nCol , nCol]]
+            mInd = np.argmax(absCol)
+            A,indexes = swapRows(A,nCol,mInd,indexes) 
             pivots.append(A)
-        #rowOps validates if it worth, if not returns 0, else returns 
-        #switched rows in matrix
-        ops = rowOps(A,nCol)
-        if(not isinstance(ops,int)):
-            A = ops 
+        multipliers = getMultipliers(A,nCol)
+        #Validates if any multiplier is different to zero
+        if(not np.count_nonzero(multipliers) == 0):
+            A = rowOps(A,nCol,multipliers)
             pivots.append(A)
-    values = regresiveSustitution(pivots[-1],times)
+    values = regresiveSustitution(pivots[-1],times,indexes)
     pivots.append(values)
     return pivots
