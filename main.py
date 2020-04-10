@@ -4,14 +4,17 @@ from newton import newton
 from falseRule import falseRule
 from fixedPoint import fixedPoint
 from multipleRoots import multipleRoots
-import inspect 
+from gaussPartialPivot import partialPivot
+
+import inspect
 import pandas as pd
+import ast
 
 def incOpt():
     args = inspect.getfullargspec(incrementalSearch)[0]
     return incrementalSearch(*defineParams(args))
 
-def bicOpt(): 
+def bicOpt():
     args = inspect.getfullargspec(bisection)[0]
     return bisection(*defineParams(args))
 
@@ -19,7 +22,7 @@ def newtonOpt():
     args = inspect.getfullargspec(newton)[0]
     return newton(*defineParams(args))
 
-def falseOpt(): 
+def falseOpt():
     args = inspect.getfullargspec(falseRule)[0]
     return falseRule(*defineParams(args))
 
@@ -29,7 +32,11 @@ def fixedOpt():
 
 def multipleOpt():
     args = inspect.getfullargspec(multipleRoots)[0]
-    return multipleRoots(*defineParams(args))    
+    return multipleRoots(*defineParams(args))
+
+def partialOpt():
+    args = inspect.getfullargspec(partialPivot)[0]
+    return partialPivot(*defineParams(args))
 
 def main():
     print('1 for incremental search\n'
@@ -37,31 +44,46 @@ def main():
     '3 for false rule\n'
     '4 for newton\n'
     '5 for fixed point\n'
-    '7 for multiple roots\n')
+    '7 for multiple roots\n'
+    '9 for gauss partial pivot\n')
 
     option = int(input())
-    
+
     switch = {
         1: incOpt,
         2: bicOpt,
         3: falseOpt,
         4: newtonOpt,
         5: fixedOpt,
-        7: multipleOpt
+        7: multipleOpt,
+        9: partialOpt
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
-    showTable(func())
+    if(option <= 7):
+        showTable(func())
+    else:
+        #[[-7,2,-3,4,-12],[5,-1,14,-1,13],[1,9,-7,5,31],[-12,13,-8,-4,-32]]
+        showSteps(func())
+        return 0
 
 
 def defineParams(params):
     values = []
     for param in params:
-        print('Enter %s ' % (param)) 
-        values.append(float(input()))
+        print('Enter %s ' % (param))
+        value = input()
+        try:
+            values.append(float(value))
+        except:
+            values.append(ast.literal_eval(value))
     print('')
     return values
 
+def showSteps(steps):
+    for step in steps:
+        print(pd.DataFrame(step).to_string(index=False, header=False)+"\n")
+    
 def showTable(table):
     result = ""
     if('status' in table[-1]):
