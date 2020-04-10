@@ -35,3 +35,6 @@ def swapRows(A,nCol,nInd,indexes):
     A[[nCol, nInd+nCol]] = A[[nInd+nCol , nCol]]
     indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol] 
     return A,indexes
+
+def isSquared(A):
+    return all(len(row) == len(A) for row in A)
