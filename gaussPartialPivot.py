@@ -14,8 +14,8 @@ def partialPivot(A):
     pivots = []
     A = np.array(A).astype(float)
     times = A[:,0].size-1
+    pivots.append(A.copy())
     indexes = np.arange(0,times+1)
-    print(indexes)
     for nCol in range(0,times):
         absCol = np.absolute(A[nCol:,nCol])
         mVal = np.amax(absCol)
