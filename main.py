@@ -5,6 +5,7 @@ from falseRule import falseRule
 from fixedPoint import fixedPoint
 from multipleRoots import multipleRoots
 from gaussPartialPivot import partialPivot
+from gaussSimple import gaussSimple
 
 import inspect
 import pandas as pd
@@ -34,6 +35,10 @@ def multipleOpt():
     args = inspect.getfullargspec(multipleRoots)[0]
     return multipleRoots(*defineParams(args))
 
+def simpleOpt():
+    args = inspect.getfullargspec(gaussSimple)[0]
+    return gaussSimple(*defineParams(args))    
+
 def partialOpt():
     args = inspect.getfullargspec(partialPivot)[0]
     return partialPivot(*defineParams(args))
@@ -45,6 +50,7 @@ def main():
     '4 for newton\n'
     '5 for fixed point\n'
     '7 for multiple roots\n'
+    '8 for gauss simple\n'
     '9 for gauss partial pivot\n')
 
     option = int(input())
@@ -56,6 +62,7 @@ def main():
         4: newtonOpt,
         5: fixedOpt,
         7: multipleOpt,
+        8: simpleOpt,
         9: partialOpt
     }
 
