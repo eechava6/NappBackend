@@ -1,14 +1,10 @@
 
 import numpy as np
 import pandas as pd
-from function import regresiveSustitution
-from function import rowOps
-from function import getMultipliers
-
-def swapRows(A,nCol,mInd,indexes):
-    A[[nCol, mInd+nCol]] = A[[mInd+nCol , nCol]]
-    indexes[nCol], indexes[mInd+nCol] = indexes[mInd+nCol], indexes[nCol] 
-    return A,indexes
+from utils import regresiveSustitution
+from utils import rowOps
+from utils import getMultipliers
+from utils import swapRows
 
 def partialPivot(A):
     pivots = []
@@ -19,6 +15,9 @@ def partialPivot(A):
     for nCol in range(0,times):
         absCol = np.absolute(A[nCol:,nCol])
         mVal = np.amax(absCol)
+        if(mVal == 0):
+            pivots.append({'status':'This matrix has no solution!'})
+            return pivots
         #Validates if there a is biggest number than A[i][i] and swap rows
         if(A[nCol][nCol] < mVal):
             mInd = np.argmax(absCol)

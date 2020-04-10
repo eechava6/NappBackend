@@ -71,7 +71,7 @@ def main():
         showTable(func())
     else:
         #[[-7,2,-3,4,-12],[5,-1,14,-1,13],[1,9,-7,5,31],[-12,13,-8,-4,-32]]
-        #[[1,2,3,4,8],[0,5,6,5,9],[0,0,9,7,10],[0,0,0,8,11]]
+        #[[1,2,3,4,8],[0,1,0,5,9],[0,10,0,7,10],[0,0,0,8,11]]
         showSteps(func())
         return 0
 
@@ -90,7 +90,10 @@ def defineParams(params):
 
 def showSteps(steps):
     for step in steps:
-        print(pd.DataFrame(step).to_string(index=False, header=False)+"\n")
+        try:
+            print(pd.DataFrame(step).to_string(index=False, header=False)+"\n")
+        except:
+            print(step)
     
 def showTable(table):
     result = ""
