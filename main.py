@@ -6,6 +6,7 @@ from fixedPoint import fixedPoint
 from multipleRoots import multipleRoots
 from gaussPartialPivot import partialPivot
 from gaussSimple import gaussSimple
+from secant import secant
 
 import inspect
 import pandas as pd
@@ -31,6 +32,10 @@ def fixedOpt():
     args = inspect.getfullargspec(fixedPoint)[0]
     return fixedPoint(*defineParams(args))
 
+def secantOpt():
+    args = inspect.getfullargspec(secant)[0]
+    return secant(*defineParams(args))
+
 def multipleOpt():
     args = inspect.getfullargspec(multipleRoots)[0]
     return multipleRoots(*defineParams(args))
@@ -49,6 +54,7 @@ def main():
     '3 for false rule\n'
     '4 for newton\n'
     '5 for fixed point\n'
+    '6 for secant\n'
     '7 for multiple roots\n'
     '8 for gauss simple\n'
     '9 for gauss partial pivot\n')
@@ -61,6 +67,7 @@ def main():
         3: falseOpt,
         4: newtonOpt,
         5: fixedOpt,
+        6: secantOpt,
         7: multipleOpt,
         8: simpleOpt,
         9: partialOpt
