@@ -8,13 +8,18 @@ from utils import swapRows
 from utils import isSquared
 def gaussSimple(A,b):
     pivots = []
+    #Convert into numpys arr
     A = np.array(A).astype(float)
     b = np.array(b).astype(float)
+    #Appends last column to A matrix
     A = np.concatenate([A, b.reshape((A.shape[0],1))], axis=1)
+    #Virgen matrix
     pivots.append(A.copy())
+    #Validates if matrix is squared
     if(not isSquared(np.delete(A, -1, axis=1))):
         pivots.append({'status':'Not square + 1 col matrix!'})
         return pivots
+    #Determinates if det is 0
     if(np.linalg.det(np.delete(A, -1, axis=1)) == 0):
         pivots.append({'status':'Det 0!'})
         return pivots
@@ -27,6 +32,7 @@ def gaussSimple(A,b):
             nInd = np.argmax(partCol > 0)
             A,indexes = swapRows(A,nCol,nInd,indexes)
             pivots.append(A)
+        #Calculates the multipliers 
         multipliers = getMultipliers(A,nCol)
         #Validates if any multiplier is different to zero
         if(not np.count_nonzero(multipliers) == 0):
