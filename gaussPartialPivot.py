@@ -7,9 +7,11 @@ from utils import getMultipliers
 from utils import swapRows
 from utils import isSquared
 
-def partialPivot(A):
+def partialPivot(A,b):
     pivots = []
     A = np.array(A).astype(float)
+    b = np.array(b).astype(float)
+    A = np.concatenate([A, b.reshape((A.shape[0],1))], axis=1)
     times = A[:,0].size-1
     pivots.append(A.copy())
     if(not isSquared(np.delete(A, -1, axis=1))):

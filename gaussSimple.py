@@ -6,9 +6,11 @@ from utils import rowOps
 from utils import getMultipliers
 from utils import swapRows
 from utils import isSquared
-def gaussSimple(A):
+def gaussSimple(A,b):
     pivots = []
     A = np.array(A).astype(float)
+    b = np.array(b).astype(float)
+    A = np.concatenate([A, b.reshape((A.shape[0],1))], axis=1)
     pivots.append(A.copy())
     if(not isSquared(np.delete(A, -1, axis=1))):
         pivots.append({'status':'Not square + 1 col matrix!'})
@@ -33,4 +35,3 @@ def gaussSimple(A):
     values = regresiveSustitution(pivots[-1],times,indexes)
     pivots.append(values)
     return pivots
-
