@@ -6,6 +6,7 @@ from fixedPoint import fixedPoint
 from multipleRoots import multipleRoots
 from gaussPartialPivot import partialPivot
 from gaussSimple import gaussSimple
+from gaussTotal import gaussTotal
 from secant import secant
 
 import inspect
@@ -48,6 +49,10 @@ def partialOpt():
     args = inspect.getfullargspec(partialPivot)[0]
     return partialPivot(*defineParams(args))
 
+def gaussTotalOpt():
+    args = inspect.getfullargspec(gaussTotal)[0]
+    return gaussTotal(*defineParams(args))
+
 def main():
     print('1 for incremental search\n'
     '2 for bisection\n'
@@ -57,7 +62,8 @@ def main():
     '6 for secant\n'
     '7 for multiple roots\n'
     '8 for gauss simple\n'
-    '9 for gauss partial pivot\n')
+    '9 for gauss partial pivot\n'
+    '10 for gauss total pivot\n')
 
     option = int(input())
 
@@ -70,14 +76,15 @@ def main():
         6: secantOpt,
         7: multipleOpt,
         8: simpleOpt,
-        9: partialOpt
+        9: partialOpt,
+        10: gaussTotalOpt
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
     if(option <= 7):
         showTable(func())
     else:
-        #[[-7,2,-3,4],[5,-1,14,-1],[1,9,-7,5],[-12,13,-8,-4]] [-12,13,31,-32]
+        #[[-7,2,-3,4],[5,-1,14,-1],[1,9,-7,5],[-28,13,-8,-4]] [-12,13,31,-32]
         #[[1,2,2,4,8],[0,1,1,5,9],[0,0,0,7,10],[0,0,1,8,11]]
         showSteps(func())
         return 0

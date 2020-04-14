@@ -1,4 +1,6 @@
 import numpy as np
+import pandas as pd
+from decimal import *
 
 def regresiveSustitution(Ab,n, indexes = 0):
     solutions = []
@@ -35,6 +37,12 @@ def swapRows(A,nCol,nInd,indexes):
     A[[nCol, nInd+nCol]] = A[[nInd+nCol , nCol]]
     indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol] 
     return A,indexes
+
+def swapCols(A,Col1,Col2):
+    for k in range(len(A)):
+        A[k][Col1], A[k][Col2+Col1] = A[k][Col2+Col1], A[k][Col1]
+
+    return A
 
 def isSquared(A):
     return all(len(row) == len(A) for row in A)
