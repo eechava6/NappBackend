@@ -26,7 +26,7 @@ def bisection(a, b, tolerance, max_iterators):
 
         error = tolerance + 1
         row = {
-                'x' : 0,
+                'x' : count,
                 'a' : a,
                 'b' : b, 
                 'x_middle': x_middle,
@@ -34,7 +34,7 @@ def bisection(a, b, tolerance, max_iterators):
                 'error': 0
         }
         return_list.append(row)
-
+        count += 1
         while error > tolerance and y_middle != 0 and count <= max_iterators:
 
             if a_evaluated_f * y_middle < 0:
