@@ -7,14 +7,14 @@ def falseRule (xi,xs,tol,max_iter):
     f_xr = f(xr)
     return_list = []
     return_list.append({
-            'iter': 0,
+            'iter': 1,
             'xi': xi,
             'xs' : xs,
             'xr': xr,
             'f(xr)': f_xr,
             'error':'NA'
             })
-    count = 1
+    count = 2
     error = tol + 1 
     while error > tol and count <= max_iter:
         xi = xr if (f_xr < 0) else xi
