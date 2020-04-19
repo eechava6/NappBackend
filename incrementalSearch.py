@@ -18,6 +18,7 @@ def incrementalSearch (start, step, stop):
     for point in points:
         mult = float(evaluated * f(point))
         root = True if mult < 0 else False 
+        
         row = {
             'iter':count,
             'x': point,
@@ -27,7 +28,7 @@ def incrementalSearch (start, step, stop):
             'range':[round(point-step,decimals),round(point,decimals)]
             }
         count = count + 1
-        return_list.append(row)
+        if(root): return_list.append(row)
         evaluated = f(point)
 
     return return_list
