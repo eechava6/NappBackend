@@ -28,7 +28,6 @@ def partialPivot(A,b):
         if(A[nCol][nCol] < mVal):
             mInd = np.argmax(absCol)
             A,indexes = swapRows(A,nCol,mInd,indexes) 
-            pivots.append(A)
         multipliers = getMultipliers(A,nCol)
         #Validates if any multiplier is different to zero
         if(not np.count_nonzero(multipliers) == 0):

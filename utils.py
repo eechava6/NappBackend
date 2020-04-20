@@ -31,6 +31,7 @@ def rowOps(Ab,nCol,multipliers):
     r = np.delete(Ab,arr,0) - mMatrix
     for val in reversed(arr):
         r = np.insert(r,0,[Ab[val,:]],0)
+    r = np.round(r,14)
     return r
 
 def swapRows(A,nCol,nInd,indexes):
