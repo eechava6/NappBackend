@@ -35,10 +35,8 @@ def multipleRoots (xi,tol,max_iter):
             'error':error
             }
         return_list.append(row)
-        if(f_xi == 0):
-            return_list.append({'status':'Root found! ;)'})
-            return return_list
-        elif(error < tol):
+        if(error < tol):
+            print(error,tol)
             return_list.append({'status':'Err lower than tolerance! :)'})
             return return_list
         elif(count >= max_iter):
