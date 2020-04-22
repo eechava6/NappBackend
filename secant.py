@@ -19,7 +19,9 @@ def secant(x0, x1, tolerance, max_iterations):
 
         denominator = x1_f - x0_f
 
-        return_list.append({'count': count, 'x0': x0, 'f(x)': x0_f, 'error': 0})
+        return_list.append({'count': count, 'x0': x0, 'f(x)': x0_f, 'error': "N/a"})
+        count += 1
+        return_list.append({'count': count, 'x0': x1, 'f(x)': x1_f, 'error': "N/a"})
 
         while error > tolerance and x1_f != 0 and denominator != 0 and count < max_iterations:
 
@@ -37,7 +39,7 @@ def secant(x0, x1, tolerance, max_iterations):
 
             count += 1
 
-            return_list.append({'count': count, 'x0': x0, 'f(x)': x0_f, 'error': error})
+            return_list.append({'count': count, 'x0': xAux, 'f(x)': x0_f, 'error': error})
 
         if x1_f == 0:
             print(str(x1) + "is a root")
