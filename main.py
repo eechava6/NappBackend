@@ -8,6 +8,7 @@ from gaussPartialPivot import partialPivot
 from gaussSimple import gaussSimple
 from gaussTotal import gaussTotal
 from secant import secant
+from template import template
 
 import inspect
 import pandas as pd
@@ -53,8 +54,14 @@ def gaussTotalOpt():
     args = inspect.getfullargspec(gaussTotal)[0]
     return gaussTotal(*defineParams(args))
 
+def templateOpt():
+    args = inspect.getfullargspec(template)[0]
+    return template(*defineParams(args))
+
 def main():
-    print('1 for incremental search\n'
+    print(
+    '0 for template\n'
+    '1 for incremental search\n'
     '2 for bisection\n'
     '3 for false rule\n'
     '4 for newton\n'
@@ -63,11 +70,13 @@ def main():
     '7 for multiple roots\n'
     '8 for gauss simple\n'
     '9 for gauss partial pivot\n'
-    '10 for gauss total pivot\n')
+    '10 for gauss total pivot\n'
+    )
 
     option = int(input())
 
     switch = {
+        0: templateOpt,
         1: incOpt,
         2: bicOpt,
         3: falseOpt,
@@ -77,7 +86,7 @@ def main():
         7: multipleOpt,
         8: simpleOpt,
         9: partialOpt,
-        10: gaussTotalOpt
+        10: gaussTotalOpt,
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
