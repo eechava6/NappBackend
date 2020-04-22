@@ -3,7 +3,9 @@ import numpy as np
 import math
 
 def template (xi,tol,max_iter):
+    #### Modify here
     f_x = evaluateFunction(xi)
+    ###
     return_list = []
     return_list.append({
             'iter': 1,
@@ -14,9 +16,11 @@ def template (xi,tol,max_iter):
     count = 2
     error = tol + 1 
     while error > tol and count <= max_iter:
+
+        ### Modify here
         xi = f_x
         f_x = evaluateFunction(xi)
-        
+        ####
         error = abs(xi - f_x)
         
         row = {
@@ -25,6 +29,7 @@ def template (xi,tol,max_iter):
             'f(x)': f_x,
             'error': error
             }
+        
         return_list.append(row)
         if(f_x == 0):
             return_list.append({'status':'Root found! ;)'})
