@@ -16,6 +16,20 @@ def regresiveSustitution(Ab,n, indexes = 0):
             solutions.append(['x%s =' %(i),xi])
     return reversed(solutions)
 
+def regresiveSustitutions(Ab,n, indexes = 0):
+    solutions = []
+    Ab= np.array(Ab,float)
+    for i in range(n,-1,-1):
+        sum = 0
+        for p in range(i+1,n+1):
+            sum = sum + Ab[i][p] * solutions[n-p][1]
+        xi = (Ab[i][n+1] - sum)/Ab[i][i] 
+        if(not isinstance(indexes,int)):
+            solutions.append(['x%s =' %(indexes[i]),xi])
+        else:
+            solutions.append(['x%s =' %(i),xi])
+    return solutions
+
 def progressiveSustitution(Ab, n, indexes = 0):
     solutions = []
     Ab= np.array(Ab,float)

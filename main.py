@@ -11,6 +11,7 @@ from secant import secant
 from template import template
 from LUpivot import luPivot
 from LUsimple import luSimple
+from crout import crout
 
 import inspect
 import pandas as pd
@@ -60,6 +61,10 @@ def luPivotOpt():
     args = inspect.getfullargspec(luPivot)[0]
     return luPivot(*defineParams(args))
 
+def crout():
+    args = inspect.getfullargspec(crout)[0]
+    return crout(*defineParams(args))    
+
 def luSimpleOpt():
     args = inspect.getfullargspec(luSimple)[0]
     return luSimple(*defineParams(args))
@@ -83,6 +88,7 @@ def main():
     '10 for gauss total pivot\n'
     '11 for lu simple \n'
     '12 for lu pivot \n'
+    '13 for lu crout \n'
     )
 
     option = int(input())
@@ -100,7 +106,8 @@ def main():
         9: partialOpt,
         10: gaussTotalOpt,
         11: luSimpleOpt,
-        12: luPivotOpt
+        12: luPivotOpt,
+        13: crout
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
