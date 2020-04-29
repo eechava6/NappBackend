@@ -13,8 +13,6 @@ def gaussSimple(A,b):
     b = np.array(b).astype(float)
     #Appends last column to A matrix
     A = np.concatenate([A, b.reshape((A.shape[0],1))], axis=1)
-    #Virgen matrix
-    pivots.append(A.copy())
     #Validates if matrix is squared
     if(not isSquared(np.delete(A, -1, axis=1))):
         pivots.append({'status':'Not square + 1 col matrix!'})

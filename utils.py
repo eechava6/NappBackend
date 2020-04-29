@@ -16,6 +16,20 @@ def regresiveSustitution(Ab,n, indexes = 0):
             solutions.append(['x%s =' %(i),xi])
     return reversed(solutions)
 
+def progressiveSustitution(Ab, n, indexes = 0):
+    solutions = []
+    Ab= np.array(Ab,float)
+    for i in range(0,n):
+        sum = 0
+        for p in range(0,i):
+            sum = sum + Ab[i][p] * solutions[p]
+        xi = (Ab[i][n] - sum)/Ab[i][i]
+        if(not isinstance(indexes,int)):
+            solutions.append(xi)
+        else:
+            solutions.append(xi)
+    return solutions
+
 def getMultipliers(Ab,nCol):
     col = Ab[:,nCol]
     f = lambda x: x/col[nCol]
@@ -43,6 +57,12 @@ def swapCols(A,Col1,Col2):
     for k in range(len(A)):
         A[k][Col1], A[k][Col2+Col1] = A[k][Col2+Col1], A[k][Col1]
 
+    return A
+
+def swapRowsSpecial(A,nCol,nInd):
+    qty = min(nCol,nInd)
+    aux = A[nInd,:qty].copy()
+    A[nInd,:qty], A[nCol,:qty] = A[nCol,:qty] , aux
     return A
 
 def isSquared(A):
