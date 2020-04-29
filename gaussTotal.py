@@ -20,7 +20,7 @@ def gaussTotal(A,b):
     if(np.linalg.det(np.delete(A, -1, axis=1)) == 0):
         pivots.append({'status':'Det 0!'})
         return pivots
-    indexes = np.arange(0,times+1)
+    indexes = np.arange(0,times)
 
     for nCol in range(0,times):
         absMat = np.absolute(A[nCol:,nCol:-1])

@@ -11,7 +11,7 @@ def luPivot(A,b):
     #Convert into numpys arr
     A = np.array(A).astype(float)
     b = np.array(b).astype(float)
-
+    
     #Validates if matrix is squared
     if(not isSquared(A)):
         pivots.append({'status':'Not square + 1 col matrix!'})
@@ -22,7 +22,8 @@ def luPivot(A,b):
         return pivots
 
     times = A[:, 0].size
-    indexes = np.arange(0, times + 1)
+    indexes = np.arange(0, times)
+
 
     #matrix L y U
     U = np.zeros([times, times])
@@ -38,32 +39,29 @@ def luPivot(A,b):
         swap = False
         #Validates if there a is biggest number than A[i][i] and swap rows
         mInd = np.argmax(absCol)
+        print(A)
         if(A[nCol][nCol] < mVal):
             A,indexes = swapRows(A,nCol,mInd,indexes)
-            P,indexes = swapRows(P,nCol,mInd,indexes)
+            P,b = swapRows(P,nCol,mInd,b)
             swap = True
 
         multipliers = getMultipliers(A,nCol)
-
         # matrix
         for k in range(0, multipliers.size):
             L[(nCol + k) + 1, nCol] = multipliers[k]
         if (swap == True):
-            swapRowsSpecial(L, nCol, mInd)
-
+            L = swapRowsSpecial(L, nCol, mInd+nCol)
         #Validates if any multiplier is different to zero
         if(not np.count_nonzero(multipliers) == 0):
             A = rowOps(A,nCol,multipliers)
             pivots.append(A)
             pivots.append(L[:, nCol])
 
-
     U = A
     pivots.append({'status': 'matrix L'})
     pivots.append(L)
     pivots.append({'status': 'matrix U'})
     pivots.append(U)
-
     Lb = np.concatenate([L, b.reshape((A.shape[0],1))], axis=1)
     z = progressiveSustitution(Lb, times, indexes)
     z = np.array(z).astype(float)
@@ -72,21 +70,4 @@ def luPivot(A,b):
     pivots.append(results)
 
     return pivots
-
-
-
-def showSteps(steps):
-    for step in steps:
-        try:
-            print(pd.DataFrame(step).to_string(index=False, header=False)+"\n")
-        except:
-            print(step)
-
-def main():
-    #luPivot([[4, -2, 1], [20, -7, 12], [-8, 13, 17]], [-12, 13, 31])
-    showSteps(luPivot([[4,-2,1],[20,-7,12],[-8,13,17]], [-12,13,31]))
-
-
-if __name__ == "__main__":
-    main()
 

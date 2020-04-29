@@ -9,6 +9,8 @@ from gaussSimple import gaussSimple
 from gaussTotal import gaussTotal
 from secant import secant
 from template import template
+from LUpivot import luPivot
+from LUsimple import luSimple
 
 import inspect
 import pandas as pd
@@ -54,6 +56,14 @@ def gaussTotalOpt():
     args = inspect.getfullargspec(gaussTotal)[0]
     return gaussTotal(*defineParams(args))
 
+def luPivotOpt():
+    args = inspect.getfullargspec(luPivot)[0]
+    return luPivot(*defineParams(args))
+
+def luSimpleOpt():
+    args = inspect.getfullargspec(luSimple)[0]
+    return luSimple(*defineParams(args))
+
 def templateOpt():
     args = inspect.getfullargspec(template)[0]
     return template(*defineParams(args))
@@ -71,6 +81,8 @@ def main():
     '8 for gauss simple\n'
     '9 for gauss partial pivot\n'
     '10 for gauss total pivot\n'
+    '11 for lu simple \n'
+    '12 for lu pivot \n'
     )
 
     option = int(input())
@@ -87,12 +99,16 @@ def main():
         8: simpleOpt,
         9: partialOpt,
         10: gaussTotalOpt,
+        11: luSimpleOpt,
+        12: luPivotOpt
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
     if(option <= 7):
         showTable(func())
     else:
+        #[[-7, 2, -3, 4], [5, -1, 14, -1], [ 1 , 9, -7, 5], [-12, 13, -8, -4]]
+        #[-32, 31 , 13 , -12]
         #[[-7,2,-3,4],[5,-1,14,-1],[1,9,-7,5],[-28,13,-8,-4]] [-12,13,31,-32]
         #[[1,2,2,4,8],[0,1,1,5,9],[0,0,0,7,10],[0,0,1,8,11]]
         showSteps(func())

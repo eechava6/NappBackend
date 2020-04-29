@@ -6,6 +6,7 @@ from utils import rowOps
 from utils import getMultipliers
 from utils import swapRows
 from utils import isSquared
+
 def luSimple(A,b):
     pivots = []
     #Convert into numpys arr
@@ -59,25 +60,8 @@ def luSimple(A,b):
     z = progressiveSustitution(Lb, times, indexes)
     z = np.array(z).astype(float)
     Uz = np.concatenate([U, z.reshape((U.shape[0],1))], axis=1)
-    print(Uz)
     results = regresiveSustitution(Uz, times-1, indexes)
-
+    pivots.append(results)
+    
     return pivots
-
-
-
-def showSteps(steps):
-    for step in steps:
-        try:
-            print(pd.DataFrame(step).to_string(index=False, header=False)+"\n")
-        except:
-            print(step)
-
-def main():
-    #luSimple([[0, -2, 1], [20, -7, 12], [-8, 13, 17]], [-12, 13, 31])
-    showSteps(luSimple([[0,-2,1],[20,-7,12],[-8,13,17]], [-12,13,31]))
-
-
-if __name__ == "__main__":
-    main()
 

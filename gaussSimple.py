@@ -22,7 +22,7 @@ def gaussSimple(A,b):
         pivots.append({'status':'Det 0!'})
         return pivots
     times = A[:,0].size-1
-    indexes = np.arange(0,times+1)
+    indexes = np.arange(0,times)
     for nCol in range(0,times):
         #Validates if A[i][i] is 0 and swap rows to first row in submatrix with col val != 0 
         if(A[nCol][nCol] == 0):

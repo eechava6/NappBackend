@@ -48,9 +48,10 @@ def rowOps(Ab,nCol,multipliers):
     r = np.round(r,14)
     return r
 
-def swapRows(A,nCol,nInd,indexes):
+def swapRows(A,nCol,nInd,indexes, index = True):
     A[[nCol, nInd+nCol]] = A[[nInd+nCol , nCol]]
-    indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol] 
+    if(index):
+        indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol] 
     return A,indexes
 
 def swapCols(A,Col1,Col2):
