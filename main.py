@@ -61,7 +61,7 @@ def luPivotOpt():
     args = inspect.getfullargspec(luPivot)[0]
     return luPivot(*defineParams(args))
 
-def crout():
+def croutOpt():
     args = inspect.getfullargspec(crout)[0]
     return crout(*defineParams(args))    
 
@@ -107,7 +107,7 @@ def main():
         10: gaussTotalOpt,
         11: luSimpleOpt,
         12: luPivotOpt,
-        13: crout
+        13: croutOpt
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])

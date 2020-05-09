@@ -28,7 +28,7 @@ def incrementalSearch (start, step, stop):
             'range':[round(point-step,decimals),round(point,decimals)]
             }
         count = count + 1
-        if(root): return_list.append(row)
+        return_list.append(row)
         evaluated = f(point)
 
     return return_list
