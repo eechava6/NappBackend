@@ -12,6 +12,9 @@ from template import template
 from LUpivot import luPivot
 from LUsimple import luSimple
 from crout import crout
+from gaussSeidel import gaussSeidel
+from jacobi import jacobi
+from sor import sor 
 
 import inspect
 import pandas as pd
@@ -73,6 +76,20 @@ def templateOpt():
     args = inspect.getfullargspec(template)[0]
     return template(*defineParams(args))
 
+def jacobiOpt():
+    args = inspect.getfullargspec(jacobi)[0]
+    return jacobi(*defineParams(args))
+
+def gaussSeidelOpt():
+    args = inspect.getfullargspec(gaussSeidel)[0]
+    return gaussSeidel(*defineParams(args))
+
+def sorOpt():
+    args = inspect.getfullargspec(sor)[0]
+    return sor(*defineParams(args))
+
+
+
 def main():
     print(
     '0 for template\n'
@@ -89,6 +106,9 @@ def main():
     '11 for lu simple \n'
     '12 for lu pivot \n'
     '13 for lu crout \n'
+    '14 for jacobi \n'
+    '15 for gauss-seidel\n'
+    '16 for sor\n'
     )
 
     option = int(input())
@@ -107,18 +127,31 @@ def main():
         10: gaussTotalOpt,
         11: luSimpleOpt,
         12: luPivotOpt,
-        13: croutOpt
+        13: croutOpt,
+        14: jacobiOpt,
+        15: gaussSeidelOpt,
+        16: sorOpt
     }
 
     func = switch.get(option, lambda: [{ 'status' : "Invalid option!!"}])
     if(option <= 7):
         showTable(func())
-    else:
+    elif (option <= 12):
         #[[-7, 2, -3, 4], [5, -1, 14, -1], [ 1 , 9, -7, 5], [-12, 13, -8, -4]]
         #[-32, 31 , 13 , -12]
         #[[-7,2,-3,4],[5,-1,14,-1],[1,9,-7,5],[-28,13,-8,-4]] [-12,13,31,-32]
         #[[1,2,2,4,8],[0,1,1,5,9],[0,0,0,7,10],[0,0,1,8,11]]
         showSteps(func())
+    else:
+        """
+        [[7, -2, -2, -1], [-2, 8, -2, -2], [-2, -2, 6, 2],[-1, -2, -2, 10]] A
+        [1, 1, 1, 1] b
+        [0, 0, 0, 0] x 
+        1e-7 tol
+        100 steps
+        1 w 
+        """
+        showObject(func())
         return 0
 
 
@@ -140,6 +173,13 @@ def showSteps(steps):
             print(pd.DataFrame(step).to_string(index=False, header=False)+"\n")
         except:
             print(step)
+
+def showObject(res):
+    print(res['TMatrix'])
+    print(res['SpectRad'])
+    print(res['CMatrix'])
+    for step in res['Iters']:
+        print(step)
     
 def showTable(table):
     result = ""
