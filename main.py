@@ -19,6 +19,7 @@ from sor import sor
 import inspect
 import pandas as pd
 import ast
+import numpy as np
 
 def incOpt():
     args = inspect.getfullargspec(incrementalSearch)[0]
@@ -144,12 +145,13 @@ def main():
         showSteps(func())
     else:
         """
-        [[7, -2, -2, -1], [-2, 8, -2, -2], [-2, -2, 6, 2],[-1, -2, -2, 10]] A
-        [1, 1, 1, 1] b
-        [0, 0, 0, 0] x 
-        1e-7 tol
-        100 steps
-        1 w 
+        A = [[7, -2, -2, -1], [-2, 8, -2, -2], [-2, -2, 6, 2],[-1, -2, -2, 10]] 
+        b = [1, 1, 1, 1] 
+        c = [0, 0, 0, 0]  
+        norm = 2
+        tol = 10e-7 
+        iters = 100 
+        w = 1.5
         """
         showObject(func())
         return 0
@@ -178,8 +180,14 @@ def showObject(res):
     print(res['TMatrix'])
     print(res['SpectRad'])
     print(res['CMatrix'])
-    for step in res['Iters']:
-        print(step)
+    df = pd.DataFrame(res['Iters'])
+    size = res['Iters']
+    size = len(size[0]['x'])
+    cols = np.arange(size)
+    x = pd.DataFrame(df['x'].values.tolist(), columns=cols)
+    df = df.drop('x',axis = 1).drop('iter', axis=1)
+    df = pd.concat([ df.reset_index(drop=True), x.reset_index(drop= True) ], axis=1)
+    print(df)
     
 def showTable(table):
     result = ""
