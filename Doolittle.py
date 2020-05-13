@@ -22,7 +22,7 @@ def lower1(matrix):
     for i in range (matrix):
             print (matrix_B[i][:],end="")
     print("}",end="")
-def gauss(matrix):
+def sl(matrix):
     error=0 
     for z in range (matrix-1):
         for x in range(1, matrix-z):
@@ -35,11 +35,11 @@ def gauss(matrix):
 
 if __name__ == "__main__":
     matrix=3
-    matrix_A = [[4, -1, 0, 3], [1, 15.5, 3, 8], [0, -1.3, -4, 1.1], [14, 5, -2, 30]]
-    matrix_B= [[1,0,0],[0,1,0],[0,0,1],] 
+    matrix_A = [[4, -1, 0, 3], [1, 15.5, 3, 8], [0, -1.3, -4, 1.1], [14, 5, -2, 30],]
+    matrix_B= [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]] 
     mult=np.zeros(matrix)
     
     lower(matrix)
     higher(matrix)
     lower1(matrix)
-    gauss(matrix)
+    sl(matrix)
