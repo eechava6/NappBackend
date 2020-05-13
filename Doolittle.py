@@ -36,9 +36,7 @@ def gauss(matrix):
 if __name__ == "__main__":
     matrix=3
     matrix_A = [[4, -1, 0, 3], [1, 15.5, 3, 8], [0, -1.3, -4, 1.1], [14, 5, -2, 30]]
-    matrix_B= [[1,0,0],
-              [0,1,0],
-              [0,0,1],] 
+    matrix_B= [[1,0,0],[0,1,0],[0,0,1],] 
     mult=np.zeros(matrix)
     
     lower(matrix)
