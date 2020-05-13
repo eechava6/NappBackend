@@ -39,7 +39,7 @@ def luPivot(A,b):
         swap = False
         #Validates if there a is biggest number than A[i][i] and swap rows
         mInd = np.argmax(absCol)
-        print(A)
+
         if(A[nCol][nCol] < mVal):
             A,indexes = swapRows(A,nCol,mInd,indexes)
             P,b = swapRows(P,nCol,mInd,b)
@@ -54,8 +54,10 @@ def luPivot(A,b):
         #Validates if any multiplier is different to zero
         if(not np.count_nonzero(multipliers) == 0):
             A = rowOps(A,nCol,multipliers)
-            pivots.append(A)
             pivots.append(L[:, nCol])
+            pivots.append(A)
+            pivots.append(P)
+
 
     U = A
     pivots.append({'status': 'matrix L'})

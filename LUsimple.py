@@ -30,7 +30,6 @@ def luSimple(A,b):
     L = np.zeros([times, times])
 
     for nCol in range(0,times):
-        pivots.append({'status':'Step '+str(nCol)})
         L[nCol, nCol] = 1
         #Validates if A[i][i] is 0 and swap rows to first row in submatrix with col val != 0
         if(A[nCol][nCol] == 0):
@@ -47,14 +46,10 @@ def luSimple(A,b):
         #Validates if any multiplier is different to zero
         if(not np.count_nonzero(multipliers) == 0):
             A = rowOps(A,nCol,multipliers)
-            pivots.append(A)
-            pivots.append(L[:,nCol])
+            pivots.append({'status': 'Step ' + str(nCol), "L": L[:,nCol], "U": A})
+
 
     U = A
-    pivots.append({'status': 'matrix L'})
-    pivots.append(L)
-    pivots.append({'status': 'matrix U'})
-    pivots.append(U)
 
     Lb = np.concatenate([L, b.reshape((A.shape[0],1))], axis=1)
     z = progressiveSustitution(Lb, times, indexes)
