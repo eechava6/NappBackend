@@ -63,7 +63,10 @@ def rowOps(Ab,nCol,multipliers):
     return r
 
 def swapRows(A,nCol,nInd,indexes, index = True):
+    print(A[[nCol, nInd+nCol]])
+    print(A[[nInd+nCol , nCol]])
     A[[nCol, nInd+nCol]] = A[[nInd+nCol , nCol]]
+    print(" Ncol = {0} nind = {1} nind+col = {2}".format(nCol,nInd,nInd+nCol))
     if(index):
         indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol] 
     return A,indexes
