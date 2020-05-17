@@ -1,12 +1,16 @@
 
 import numpy as np
-import pandas as pd
+import ast
+import json
 from utils import regresiveSustitution, progressiveSustitution, swapRowsSpecial
 from utils import rowOps
 from utils import getMultipliers
 from utils import swapRows
 from utils import isSquared
 def luPivot(A,b):
+    A = ast.literal_eval(A)
+    b = ast.literal_eval(b)
+    res = {}
     pivots = []
     #Convert into numpys arr
     A = np.array(A).astype(float)
@@ -26,12 +30,11 @@ def luPivot(A,b):
 
 
     #matrix L y U
-    U = np.zeros([times, times])
-    L = np.zeros([times, times])
+    L = np.identity(times)
     P = np.identity(times)
 
     for nCol in range(0,times):
-        pivots.append({'status': 'Step ' + str(nCol)})
+
         L[nCol, nCol] = 1
 
         absCol = np.absolute(A[nCol:,nCol])
@@ -54,22 +57,16 @@ def luPivot(A,b):
         #Validates if any multiplier is different to zero
         if(not np.count_nonzero(multipliers) == 0):
             A = rowOps(A,nCol,multipliers)
-            pivots.append(L[:, nCol])
-            pivots.append(A)
-            pivots.append(P)
-
+        pivots.append({'status': 'step ' + str(nCol), "L": json.dumps(L.tolist()), "U": json.dumps(A.tolist()), "P" : json.dumps(P.tolist())})
 
     U = A
-    pivots.append({'status': 'matrix L'})
-    pivots.append(L)
-    pivots.append({'status': 'matrix U'})
-    pivots.append(U)
     Lb = np.concatenate([L, b.reshape((A.shape[0],1))], axis=1)
     z = progressiveSustitution(Lb, times, indexes)
     z = np.array(z).astype(float)
     Uz = np.concatenate([U, z.reshape((U.shape[0],1))], axis=1)
     results = regresiveSustitution(Uz, times-1, indexes)
-    pivots.append(results)
+    res["pivots"] = pivots
+    res["results"] = results
 
-    return pivots
+    return res
 

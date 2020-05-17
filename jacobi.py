@@ -1,6 +1,11 @@
-import numpy as np
 
+import numpy as np
+import ast
+import json
 def jacobi(A, b, x, norm, tol, iteMax):
+    A = ast.literal_eval(A)
+    b = ast.literal_eval(b)
+    x = ast.literal_eval(x)
     result = {}
     iters = []
     D = np.diag(np.diag(A))
@@ -15,10 +20,11 @@ def jacobi(A, b, x, norm, tol, iteMax):
     spectRad = np.max(np.absolute(np.linalg.eigvals(T)))
     if(spectRad > 1): return {"status" : "spectral radious > 1"}
     #Saving into result dict
-    result['TMatrix'] = T
-    result['CMatrix'] = C
+    result['TMatrix'] = json.dumps(T.tolist())
+    result['CMatrix'] = json.dumps(C.tolist())
     result['SpectRad'] = spectRad
-    iters.append({ "iter" : ite, "E" : "n/a", "x" : x })
+
+    iters.append({ "iter" : ite, "E" : "n/a", "x" : x})
     #End savings
     while(norm > tol and ite < iteMax):
         xold = x
@@ -26,7 +32,7 @@ def jacobi(A, b, x, norm, tol, iteMax):
         norm = np.linalg.norm(xold-x)
         ite += 1
         #Saving into iters
-        iters.append({ "iter" : ite,  "E" : norm,  "x" : x})
+        iters.append({ "iter" : ite,  "E" : float(norm),  "x" : x.tolist()})
         #End saving
     result['Iters'] = iters
     return result

@@ -99,6 +99,54 @@ def gaussTot():
     b = data["b"]
     return dict(gaussTotal(a, b))
 
+@app.route("/luSimple",methods=['POST'])
+def luSimp():
+    data = request.json
+    a = data["a"]
+    b = data["b"]
+    return dict(luSimple(a, b))
+
+@app.route("/luPivot",methods=['POST'])
+def luPiv():
+    data = request.json
+    a = data["a"]
+    b = data["b"]
+    return dict(luPivot(a, b))
+
+# Crout needs repairings
+
+@app.route("/jacobi",methods=['POST'])
+def jacob():
+    data = request.json
+    a = data["a"]
+    b = data["b"]
+    x = data["x"]
+    tol = data["tol"]
+    iters = data["iters"]
+    return dict(jacobi(a, b,x,2,tol,iters))
+
+@app.route("/gaussSeidel",methods=['POST'])
+def gaussSeid():
+    data = request.json
+    a = data["a"]
+    b = data["b"]
+    x = data["x"]
+    tol = data["tol"]
+    iters = data["iters"]
+    return dict(gaussSeidel(a, b,x,2,tol,iters))
+
+@app.route("/sor",methods=['POST'])
+def so():
+    data = request.json
+    a = data["a"]
+    b = data["b"]
+    x = data["x"]
+    tol = data["tol"]
+    iters = data["iters"]
+    w = data["w"]
+    return dict(sor(a, b,x,2,tol,iters,w))
+
+# Cholesky needs repairings.
 
 if __name__ == "__main__":
     app.run(debug=True)

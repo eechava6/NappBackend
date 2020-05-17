@@ -11,9 +11,9 @@ def regresiveSustitution(Ab,n, indexes = 0):
             sum = sum + Ab[i][p] * solutions[n-p][1]
         xi = (Ab[i][n+1] - sum)/Ab[i][i] 
         if(not isinstance(indexes,int)):
-            solutions.append(['x%s =' %(indexes[i]),xi])
+            solutions.append(['x%s' %(indexes[i]),xi])
         else:
-            solutions.append(['x%s =' %(i),xi])
+            solutions.append(['x%s' %(i),xi])
     return solutions[::-1]
 
 def regresiveSustitutions(Ab,n, indexes = 0):
