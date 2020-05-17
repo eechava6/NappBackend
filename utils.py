@@ -14,7 +14,7 @@ def regresiveSustitution(Ab,n, indexes = 0):
             solutions.append(['x%s =' %(indexes[i]),xi])
         else:
             solutions.append(['x%s =' %(i),xi])
-    return reversed(solutions)
+    return solutions[::-1]
 
 def regresiveSustitutions(Ab,n, indexes = 0):
     solutions = []
@@ -25,9 +25,9 @@ def regresiveSustitutions(Ab,n, indexes = 0):
             sum = sum + Ab[i][p] * solutions[n-p][1]
         xi = (Ab[i][n+1] - sum)/Ab[i][i] 
         if(not isinstance(indexes,int)):
-            solutions.append(['x%s =' %(indexes[i]),xi])
+            solutions.append(['x%s' %(indexes[i]),xi])
         else:
-            solutions.append(['x%s =' %(i),xi])
+            solutions.append(['x%s' %(i),xi])
     return solutions
 
 def progressiveSustitution(Ab, n, indexes = 0):
@@ -63,10 +63,7 @@ def rowOps(Ab,nCol,multipliers):
     return r
 
 def swapRows(A,nCol,nInd,indexes, index = True):
-    print(A[[nCol, nInd+nCol]])
-    print(A[[nInd+nCol , nCol]])
     A[[nCol, nInd+nCol]] = A[[nInd+nCol , nCol]]
-    print(" Ncol = {0} nind = {1} nind+col = {2}".format(nCol,nInd,nInd+nCol))
     if(index):
         indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol] 
     return A,indexes

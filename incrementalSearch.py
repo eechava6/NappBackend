@@ -31,7 +31,7 @@ def incrementalSearch (start, step, stop):
         return_list.append(row)
         evaluated = f(point)
 
-    return return_list
+    return {"iters": return_list}
 
 
 

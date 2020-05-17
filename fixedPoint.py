@@ -4,6 +4,7 @@ import numpy as np
 import math
 
 def fixedPoint (xi,tol,max_iter):
+    res = {}
     f_xi = f(xi)
     g_xi = g(xi)
     return_list = []
@@ -15,7 +16,7 @@ def fixedPoint (xi,tol,max_iter):
             'error':'NA'
             })
     count = 1
-    error = tol + 1 
+    error = tol + 1
     while error > tol and count <= max_iter:
         xn = g_xi
         g_xi = g(xn)
@@ -31,17 +32,20 @@ def fixedPoint (xi,tol,max_iter):
             }
         return_list.append(row)
         if(f_xi == 0):
-            return_list.append({'status':'Root found! ;)'})
-            return return_list
+            res["iters"] = return_list
+            res["status"] = 'Root found! ;)'
+            return res
         elif(error < tol):
-            return_list.append({'status':'Err lower than tolerance! :)'})
-            return return_list
+            res["iters"] = return_list
+            res["status"] = 'Err lower than tolerance! :)'
+            return res
         elif(count >= max_iter):
-            return_list.append({'status':'Overpassed max iteration! :('})
-            return return_list
+            res["iters"] = return_list
+            res["status"] = 'Overpassed max iteration! :('
+            return res
         count = count + 1
 
-    return return_list
+    return {"iters" : return_list}
 
 
 

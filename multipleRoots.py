@@ -5,6 +5,7 @@ from function import ddf
 import math
 
 def multipleRoots (xi,tol,max_iter):
+    res = {}
     f_xi = f(xi)
     df_xi = df(xi)
     ddf_xi = ddf(xi)
@@ -18,7 +19,7 @@ def multipleRoots (xi,tol,max_iter):
             'error':'NA'
             })
     count = 1
-    error = tol + 1 
+    error = tol + 1
     while error > tol and count <= max_iter:
         xiTemp = xi
         xi = x_next(xi)
@@ -35,16 +36,17 @@ def multipleRoots (xi,tol,max_iter):
             'error':error
             }
         return_list.append(row)
-        if(error < tol):
-            print(error,tol)
-            return_list.append({'status':'Err lower than tolerance! :)'})
-            return return_list
-        elif(count >= max_iter):
-            return_list.append({'status':'Overpassed max iteration! :('})
-            return return_list
+        if error <= tol:
+            res["iters"] = return_list
+            res["status"] = 'Err lower than tolerance! :)'
+            return res
+        elif (count >= max_iter):
+            res["iters"] = return_list
+            res["status"] = 'Overpassed max iteration! :('
+            return res
         count = count + 1
 
-    return return_list
+    return res
 
 def x_next (xn):
     return xn - ((f(xn)*df(xn))/((df(xn)**2)-f(xn)*ddf(xn)))

@@ -1,5 +1,6 @@
 import numpy as np
-import pandas as pd
+import ast
+import json
 from utils import regresiveSustitution
 from utils import rowOps
 from utils import getMultipliers
@@ -8,20 +9,25 @@ from utils import swapCols
 from utils import isSquared
 
 def gaussTotal(A,b):
+    A = ast.literal_eval(A)
+    b = ast.literal_eval(b)
+    res = {}
     pivots = []
+    # Convert into numpys arr
     A = np.array(A).astype(float)
     b = np.array(b).astype(float)
-    A = np.concatenate([A, b.reshape((A.shape[0],1))], axis=1)
-    times = A[:,0].size-1
-    pivots.append(A.copy())
-    if(not isSquared(np.delete(A, -1, axis=1))):
-        pivots.append({'status':'Not square + 1 col matrix!'})
-        return pivots
-    if(np.linalg.det(np.delete(A, -1, axis=1)) == 0):
-        pivots.append({'status':'Det 0!'})
-        return pivots
-    indexes = np.arange(0,times)
-
+    # Appends last column to A matrix
+    A = np.concatenate([A, b.reshape((A.shape[0], 1))], axis=1)
+    # Validates if matrix is squared
+    if not isSquared(np.delete(A, -1, axis=1)):
+        res["status"] =  'Not square + 1 col matrix!'
+        return res
+    # Determines if det is 0
+    if (np.linalg.det(np.delete(A, -1, axis=1)) == 0):
+        res["status"] =  'Determinant is 0'
+        return res
+    times = A[:, 0].size - 1
+    indexes = np.arange(0, times+1)
     for nCol in range(0,times):
         absMat = np.absolute(A[nCol:,nCol:-1])
         mVal = np.amax(absMat)
@@ -29,22 +35,18 @@ def gaussTotal(A,b):
         mCol = np.where(absMat == mVal)[1][0]
 
         if (A[nCol][nCol] < mVal):
-
             if(nCol + mRow != nCol):
                 A, indexes = swapRows(A, nCol, mRow, indexes)
-                pivots.append(A)
-
             if(nCol + mCol != nCol):
                 A = swapCols(A, nCol, mCol)
-                pivots.append(A)
 
         multipliers = getMultipliers(A, nCol)
+        # Validates if any multiplier is different to zero
         if (not np.count_nonzero(multipliers) == 0):
             A = rowOps(A, nCol, multipliers)
-            pivots.append(A)
+            pivots.append({"step": nCol, "matrix": json.dumps(A.tolist())})
 
-
-    values = regresiveSustitution(pivots[-1], times, indexes)
-    pivots.append(values)
-
-    return pivots
+    values = regresiveSustitution(A,times,indexes)
+    res["pivots"] = pivots
+    res["values"] = values
+    return res
