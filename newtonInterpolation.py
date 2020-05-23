@@ -1,7 +1,7 @@
 import numpy as np
 
-x = np.array([1,1.2,1.4,1.6,1.8,2]) # x coordinates in space
-y = np.array([0.6747,0.8491,1.1214,1.4921,1.9607,2.5258]) # f(x)
+x = np.array( [-1,1,-0.64745,6]) # x coordinates in space
+y = np.array( [1,3,1,-2]) # f(x)
 
 n = len(y)
 

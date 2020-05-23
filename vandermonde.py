@@ -40,14 +40,14 @@ def vandermonde(x,y):
     return result
 
 
-x = np.array([-2,-1,2,3])
+x = np.array( [-1,1,-0.64745,6]) # x coordinates in space
+y = np.array( [1,3,1,-2]) # f(x)
 print("x: ")
 print(x)
 print("Van der monde Matrix x: ")
 vanx = np.vander(x)
 print(vanx)
 
-y = np.array([12.13533528,6.367879441,-4.610943901,2.085536923])
 res = vandermonde(x,y)
 print("------------")
 print(res['x'])
