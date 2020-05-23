@@ -19,10 +19,12 @@ def luSimple(A,b):
     # Validates if matrix is squared
     if(not isSquared(A)):
         res["status"] =  'Not square + 1 col matrix!'
+        res["error"] = True
         return res
     # Determines if det is 0
     if(np.linalg.det(A) == 0):
         res["status"] =  'Determinant is 0'
+        res["error"] = True
         return res
     times = A[:, 0].size
     indexes = np.arange(0, times)
@@ -47,7 +49,7 @@ def luSimple(A,b):
         #Validates if any multiplier is different to zero
         if(not np.count_nonzero(multipliers) == 0):
             A = rowOps(A,nCol,multipliers)
-        pivots.append({'status': 'step ' + str(nCol), "L":json.dumps(L.tolist()) , "U": json.dumps(A.tolist())})
+        pivots.append({'step': nCol, "L":json.dumps(L.tolist()) , "U": json.dumps(A.tolist())})
 
     U = A
     Lb = np.concatenate([L, b.reshape((A.shape[0],1))], axis=1)
@@ -57,6 +59,7 @@ def luSimple(A,b):
     results = regresiveSustitution(Uz, times-1, indexes)
     res["pivots"] = pivots
     res["results"] = results
+    res["error"] = False
     
     return res
 

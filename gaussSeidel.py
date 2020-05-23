@@ -10,14 +10,14 @@ def gaussSeidel(A, b, x, norm, tol, iteMax):
     D = np.diag(np.diag(A))
     L = (-1 * np.tril(A))+D
     U = (-1 * np.triu(A))+D
-    if(0 in np.diag(A)): return {"status" : "diagonal has 0"}
+    if(0 in np.diag(A)): return {"status" : "diagonal has 0", "error" : True}
     ite = 0
     #Change here for jacobi, Sor and Gauss seidel
     T = np.dot(np.linalg.inv(D-L), U)
     C = np.dot(np.linalg.inv(D-L),b)
     #End changes
     spectRad = np.max(np.absolute(np.linalg.eigvals(T)))
-    if(spectRad > 1): return {"status" : "spectral radious > 1"}
+    if(spectRad > 1): return {"status" : "spectral radious > 1", "error" : True}
     #Saving into result dict
     result['TMatrix'] = json.dumps(T.tolist())
     result['CMatrix'] = json.dumps(C.tolist())
@@ -33,5 +33,6 @@ def gaussSeidel(A, b, x, norm, tol, iteMax):
         #Saving into iters
         iters.append({"iter": ite, "E": float(norm), "x": x.tolist()})
         #End saving
-    result['Iters'] = iters
+    result['iters'] = iters
+    result['error'] = False
     return result

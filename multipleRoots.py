@@ -39,10 +39,12 @@ def multipleRoots (xi,tol,max_iter):
         if error <= tol:
             res["iters"] = return_list
             res["status"] = 'Err lower than tolerance! :)'
+            res["error"] = False
             return res
         elif (count >= max_iter):
             res["iters"] = return_list
             res["status"] = 'Overpassed max iteration! :('
+            res["error"] = True
             return res
         count = count + 1
 

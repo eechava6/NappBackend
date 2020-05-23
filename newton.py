@@ -24,18 +24,22 @@ def newton(x0, tolerance, max_iterations):
     if f_x == 0:
         res["iters"] = return_list
         res["status"] = 'Root found! ;)'
+        res["error"] = False
         return res
     elif error <= tolerance:
         res["iters"] = return_list
         res["status"] = 'Err lower than tolerance! :)'
+        res["error"] =  False
         return res
     elif df_x == 0:
         res["iters"] = return_list
         res["status"] = 'Possible multiple root! :0'
+        res["error"] = True
         return res
     elif (count >= max_iterations):
         res["iters"] = return_list
         res["status"] = 'Overpassed max iteration! :('
+        res["error"] = True
         return res
 
     return res

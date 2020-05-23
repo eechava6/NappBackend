@@ -53,15 +53,19 @@ def bisection(a, b, tolerance, max_iterators):
             if (y_middle == 0):
                 res["iters"] = return_list
                 res["status"] = 'Root found! ;)'
+                res["error"] = False
 
                 return res
             elif (error < tolerance):
                 res["iters"] = return_list
                 res["status"] = 'Err lower than tolerance! :)'
+                res["error"] = True
+
                 return res
             elif (count >= max_iterators):
                 res["iters"] = return_list
                 res["status"] =  'Overpass max iteration! :('
+                res["error"] = True
                 return res
 
 

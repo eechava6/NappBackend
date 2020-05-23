@@ -34,17 +34,22 @@ def falseRule (xi,xs,tol,max_iter):
             'error': error
             }
         return_list.append(row)
-        if(f_xr == 0):
+        if f_xr == 0:
             res["iters"] = return_list
             res["status"] = 'Root found! ;)'
+            res["error"] = False
+
             return res
-        elif(error < tol):
+        elif error < tol:
             res["iters"] = return_list
             res["status"] = 'Err lower than tolerance! :)'
+            res["error"] = True
+
             return res
-        elif(count >= max_iter):
+        elif count >= max_iter:
             res["iters"] = return_list
-            res["status"] = 'Overpassed max iteration! :('
+            res["status"] =  'Overpass max iteration! :('
+            res["error"] = True
             return res
         count = count + 1
     return res
