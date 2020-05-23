@@ -22,7 +22,27 @@ app = Flask(__name__)
 
 @app.route("/",methods=['GET'])
 def hello():
-    return "<a> Hello! backend working. <a>"
+    return """<h2 style="text-align: center;"><strong style="background-color: #317399; padding: 0 5px; color: #fff;">Hello! backend is working&nbsp;<img src="https://html5-editor.net/tinymce/plugins/emoticons/img/smiley-embarassed.gif" alt="embarassed" /></strong></h2>
+            <p style="text-align: center;"><span style="color: #000080;"><strong> available endpoints: </strong></span></p>
+            <p style="text-align: center;"><br />/bisection</p>
+            <p style="text-align: center;">/incSearch</p>
+            <p style="text-align: center;">/falseRule</p>
+            <p style="text-align: center;">/newton</p>
+            <p style="text-align: center;">/fixedPoint</p>
+            <p style="text-align: center;">/secant</p>
+            <p style="text-align: center;">/multipleRoots</p>
+            <p style="text-align: center;">/gaussSimple</p>
+            <p style="text-align: center;">/gaussPartial</p>
+            <p style="text-align: center;">/gaussTotal</p>
+            <p style="text-align: center;">/luSimple</p>
+            <p style="text-align: center;">/luPivot</p>
+            <p style="text-align: center;">/jacobi</p>
+            <p style="text-align: center;">/gaussSeidel</p>
+            <p style="text-align: center;">/sor</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+             """
 
 @app.route("/incSearch",methods=['POST'])
 def incSearch():

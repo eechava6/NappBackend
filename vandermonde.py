@@ -1,6 +1,7 @@
 import numpy as np
 
 def vandermonde(x,y):
+    vanx = np.vander(x)
     yT = y.T
 
     invX = np.linalg.inv(vanx) # Get the inverse of matrix x
@@ -34,8 +35,6 @@ def vandermonde(x,y):
 
 x = np.array([-1,1,5.992,6])
 print("Van der monde Matrix x: ")
-vanx = np.vander(x)
-print(vanx)
 
 y = np.array([1,3,-1,-2])
 res = vandermonde(x,y)
