@@ -1,8 +1,0 @@
-Doolittle
-Cholesky
-
-
-Tareas por método: 
-Documentar la página
-Hacer las pruebas de cada método
-Pseudocódigo
