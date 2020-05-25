@@ -17,6 +17,8 @@ from methods.newtonInterpolation import newtonInterpolation
 from methods.vandermonde import  vandermonde
 from methods.lagrangeInterpolation import lagrangeInterpolation
 
+from flask_cors import CORS, cross_origin
+
 from utils.defFunction import defFunction
 
 from views.home import methods
@@ -296,3 +298,4 @@ def lagrange():
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug = False)
+  cors = CORS(app)
