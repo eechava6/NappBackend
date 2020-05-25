@@ -14,8 +14,6 @@ def bisection(a, b, tolerance, max_iterators):
         return {"status": "root on B", "error" : False}
 
     elif ((a_evaluated_f * b_evaluated_f) < 0):
-        print("here")
-        print(a_evaluated_f * b_evaluated_f)
         count = 1
         x_middle = float((a + b) / 2)
         y_middle = float(f(x_middle))
@@ -52,7 +50,6 @@ def bisection(a, b, tolerance, max_iterators):
                 'error': error
             }
             count += 1
-            print(row)
             return_list.append(row)
             if (y_middle == 0):
                 res["iters"] = return_list
@@ -71,7 +68,6 @@ def bisection(a, b, tolerance, max_iterators):
                 res["status"] =  'Overpass max iteration! :('
                 res["error"] = True
                 return res
-    print(res)
     return res
 
 
