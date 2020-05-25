@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
-from utils import regresiveSustitution, progressiveSustitution, swapRowsSpecial,regresiveSustitutions
-from utils import rowOps
-from utils import getMultipliers
-from utils import swapRows
-from utils import isSquared
+from methods.utils import progressiveSustitution, regresiveSustitutions
 
 
 def crout(A,b):

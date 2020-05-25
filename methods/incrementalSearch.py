@@ -1,4 +1,4 @@
-from function import f
+from methods.function import f
 import numpy as np
 
 def incrementalSearch (start, step, stop):

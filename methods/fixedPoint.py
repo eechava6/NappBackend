@@ -1,7 +1,6 @@
-from function import f
-from function import g
-import numpy as np
-import math
+from methods.function import f
+from methods.function import g
+
 
 def fixedPoint (xi,tol,max_iter):
     res = {}

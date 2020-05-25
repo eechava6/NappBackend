@@ -1,8 +1,6 @@
-from function import f
-from function import df
-from function import ddf
-
-import math
+from methods.function import f
+from methods.function import df
+from methods.function import ddf
 
 def multipleRoots (xi,tol,max_iter):
     res = {}

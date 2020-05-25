@@ -1,13 +1,14 @@
+import numpy as np
 import ast
 import json
-import numpy as np
-from utils import regresiveSustitution
-from utils import rowOps
-from utils import getMultipliers
-from utils import swapRows
-from utils import isSquared
+from methods.utils import regresiveSustitution
+from methods.utils import rowOps
+from methods.utils import getMultipliers
+from methods.utils import swapRows
+from methods.utils import swapCols
+from methods.utils import isSquared
 
-def partialPivot(A,b):
+def gaussTotal(A,b):
     A = ast.literal_eval(A)
     b = ast.literal_eval(b)
     res = {}
@@ -30,16 +31,21 @@ def partialPivot(A,b):
     times = A[:, 0].size - 1
     indexes = np.arange(0, times+1)
     for nCol in range(0,times):
-        absCol = np.absolute(A[nCol:,nCol])
-        mVal = np.amax(absCol)
-        #Validates if there a is biggest number than A[i][i] and swap rows
-        if(A[nCol][nCol] < mVal):
-            mInd = np.argmax(absCol)
-            A,indexes = swapRows(A,nCol,mInd,indexes)
-        multipliers = getMultipliers(A,nCol)
-        #Validates if any multiplier is different to zero
-        if(not np.count_nonzero(multipliers) == 0):
-            A = rowOps(A,nCol,multipliers)
+        absMat = np.absolute(A[nCol:,nCol:-1])
+        mVal = np.amax(absMat)
+        mRow = np.where(absMat == mVal)[0][0]
+        mCol = np.where(absMat == mVal)[1][0]
+
+        if (A[nCol][nCol] < mVal):
+            if(nCol + mRow != nCol):
+                A, indexes = swapRows(A, nCol, mRow, indexes)
+            if(nCol + mCol != nCol):
+                A = swapCols(A, nCol, mCol)
+
+        multipliers = getMultipliers(A, nCol)
+        # Validates if any multiplier is different to zero
+        if (not np.count_nonzero(multipliers) == 0):
+            A = rowOps(A, nCol, multipliers)
             pivots.append({"step": nCol, "matrix": json.dumps(A.tolist())})
 
     values = regresiveSustitution(A,times,indexes)

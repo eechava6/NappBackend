@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from function import f
+from methods.function import f
 
 
 def secant(x0, x1, tolerance, max_iterations):

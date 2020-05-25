@@ -1,14 +1,15 @@
 import numpy as np
-
-x = np.array([-1, 1, 2.569858113, 6])  # x coordinates in space
-y = np.array([1, 3, 1, -2])  # f(x)
+import ast
 
 def newtonInterpolation(x, y):
+    x = ast.literal_eval(x)
+    y = ast.literal_eval(y)
     n = len(y)
     table = np.zeros([n, n])  # Create a square matrix to hold table
     table[::, 0] = y  # first column is y
 
     results = {"table": [], "coefficient": []}
+    results["table"].append({"column": y, "index": 0})
     """ Creates Newton table and extracts coefficients """
     for j in range(1, n):
         column = []
@@ -21,19 +22,16 @@ def newtonInterpolation(x, y):
     coeff = table[0]  # return first row
     for c in coeff:
         results["coefficient"].append(c)
-
+    polynom = ""
     for i in range(n):
-        print(table[0][i], end=" ")
+        polynom += str(round(table[0][i],4))
         for j in range(i):
-            print("( x -", x[j], ")", end=" ")
+            polynom+= "*( x -"+ str(round(x[j],4))+ ")"
         if (i != n - 1):
-            print("+", end=" ")
-    print()
-
+            polynom += "+"
+    polynom = polynom.replace(" ", "").replace("--", "+").replace("++", "+").replace("+-", "-").replace("-+", "-")
+    results["polynom"] = polynom
     return results
-
-
-coeff_vector = newtonInterpolation(x, y)
 
 
 

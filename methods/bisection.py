@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from function import f
-
+from methods.function import f
 
 def bisection(a, b, tolerance, max_iterators):
     res = {}
     return_list = []
     a_evaluated_f = float(f(a))
     b_evaluated_f = float(f(b))
+    #ToDo Add exceptions a=b && a*b > 1
     if a_evaluated_f == 0:
-        return {"status" : "root on A"}
+        return {"status" : "root on A" , "error" : False}
     elif b_evaluated_f == 0:
-        return {"status": "root on B"}
-    elif a_evaluated_f * b_evaluated_f < 0:
+        return {"status": "root on B", "error" : False}
+
+    elif ((a_evaluated_f * b_evaluated_f) < 0):
+        print("here")
+        print(a_evaluated_f * b_evaluated_f)
         count = 1
         x_middle = float((a + b) / 2)
         y_middle = float(f(x_middle))
@@ -49,6 +52,7 @@ def bisection(a, b, tolerance, max_iterators):
                 'error': error
             }
             count += 1
+            print(row)
             return_list.append(row)
             if (y_middle == 0):
                 res["iters"] = return_list
@@ -59,7 +63,7 @@ def bisection(a, b, tolerance, max_iterators):
             elif (error < tolerance):
                 res["iters"] = return_list
                 res["status"] = 'Err lower than tolerance! :)'
-                res["error"] = True
+                res["error"] = False
 
                 return res
             elif (count >= max_iterators):
@@ -67,8 +71,7 @@ def bisection(a, b, tolerance, max_iterators):
                 res["status"] =  'Overpass max iteration! :('
                 res["error"] = True
                 return res
-
-
+    print(res)
     return res
 
 

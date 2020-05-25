@@ -1,11 +1,11 @@
 import ast
 import json
 import numpy as np
-from utils import regresiveSustitution
-from utils import rowOps
-from utils import getMultipliers
-from utils import swapRows
-from utils import isSquared
+from methods.utils import regresiveSustitution
+from methods.utils import rowOps
+from methods.utils import getMultipliers
+from methods.utils import swapRows
+from methods.utils import isSquared
 
 def gaussSimple(A, b):
     A = ast.literal_eval(A)

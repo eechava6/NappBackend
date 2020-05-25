@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from function import f, df
+from methods.function import f, df
 
 
 def newton(x0, tolerance, max_iterations):

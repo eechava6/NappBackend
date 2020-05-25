@@ -1,6 +1,4 @@
-from function import f
-import numpy as np
-import math
+from methods.function import f
 
 def falseRule (xi,xs,tol,max_iter):
     res = {}
@@ -43,7 +41,7 @@ def falseRule (xi,xs,tol,max_iter):
         elif error < tol:
             res["iters"] = return_list
             res["status"] = 'Err lower than tolerance! :)'
-            res["error"] = True
+            res["error"] = False
 
             return res
         elif count >= max_iter:

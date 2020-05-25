@@ -1,48 +1,34 @@
-from incrementalSearch import incrementalSearch
-from bisection import bisection
-from newton import newton
-from falseRule import falseRule
-from fixedPoint import fixedPoint
-from multipleRoots import multipleRoots
-from gaussPartialPivot import partialPivot
-from gaussSimple import gaussSimple
-from gaussTotal import gaussTotal
-from secant import secant
-from LUpivot import luPivot
-from LUsimple import luSimple
-from crout import crout
-from gaussSeidel import gaussSeidel
-from jacobi import jacobi
-from sor import sor
+from methods.incrementalSearch import incrementalSearch
+from methods.bisection import bisection
+from methods.newton import newton
+from methods.falseRule import falseRule
+from methods.fixedPoint import fixedPoint
+from methods.multipleRoots import multipleRoots
+from methods.gaussPartialPivot import partialPivot
+from methods.gaussSimple import gaussSimple
+from methods.gaussTotal import gaussTotal
+from methods.secant import secant
+from methods.LUpivot import luPivot
+from methods.LUsimple import luSimple
+from methods.gaussSeidel import gaussSeidel
+from methods.jacobi import jacobi
+from methods.sor import sor
+from methods.newtonInterpolation import newtonInterpolation
+from methods.vandermonde import  vandermonde
+from methods.lagrangeInterpolation import lagrangeInterpolation
+
+from utils.defFunction import defFunction
+
+from views.home import methods
 
 from flask import Flask, request
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 @app.route("/",methods=['GET'])
 def hello():
-    return """<h2 style="text-align: center;"><strong style="background-color: #317399; padding: 0 5px; color: #fff;">Hello! backend is working&nbsp;<img src="https://html5-editor.net/tinymce/plugins/emoticons/img/smiley-embarassed.gif" alt="embarassed" /></strong></h2>
-            <p style="text-align: center;"><span style="color: #000080;"><strong> available endpoints: </strong></span></p>
-            <p style="text-align: center;"><br />/bisection</p>
-            <p style="text-align: center;">/incSearch</p>
-            <p style="text-align: center;">/falseRule</p>
-            <p style="text-align: center;">/newton</p>
-            <p style="text-align: center;">/fixedPoint</p>
-            <p style="text-align: center;">/secant</p>
-            <p style="text-align: center;">/multipleRoots</p>
-            <p style="text-align: center;">/gaussSimple</p>
-            <p style="text-align: center;">/gaussPartial</p>
-            <p style="text-align: center;">/gaussTotal</p>
-            <p style="text-align: center;">/luSimple</p>
-            <p style="text-align: center;">/luPivot</p>
-            <p style="text-align: center;">/jacobi</p>
-            <p style="text-align: center;">/gaussSeidel</p>
-            <p style="text-align: center;">/sor</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-             """
+    return methods()
 
 @app.route("/incSearch",methods=['POST'])
 def incSearch():
@@ -50,7 +36,10 @@ def incSearch():
     start = data["start"]
     step = data["step"]
     end = data["end"]
-    return dict(incrementalSearch(start,step,end))
+    f = data["f"]
+    f = defFunction(f,"f")
+    method = dict(incrementalSearch(start,step,end))
+    return { "f" : f, "method" : method}
 
 @app.route("/bisection",methods=['POST'])
 def bisect():
@@ -59,7 +48,10 @@ def bisect():
     b = data["b"]
     tol = data["tol"]
     iters = data["iters"]
-    return dict(bisection(a,b,tol,iters))
+    f = data["f"]
+    f = defFunction(f,"f")
+    method = dict(bisection(a,b,tol,iters))
+    return {"f": f, "method": method}
 
 @app.route("/falseRule",methods=['POST'])
 def falRule():
@@ -68,7 +60,10 @@ def falRule():
     b = data["b"]
     tol = data["tol"]
     iters = data["iters"]
-    return falseRule(a,b,tol,iters)
+    f = data["f"]
+    f = defFunction(f,"f")
+    method = falseRule(a,b,tol,iters)
+    return {"f": f, "method": method}
 
 @app.route("/newton",methods=['POST'])
 def newt():
@@ -76,7 +71,12 @@ def newt():
     a = data["a"]
     tol = data["tol"]
     iters = data["iters"]
-    return dict(newton(a,tol,iters))
+    f = data["f"]
+    f = defFunction(f,"f")
+    df = data["df"]
+    df = defFunction(df,"df")
+    method = dict(newton(a,tol,iters))
+    return  {"f": f, "df": df, "method": method}
 
 @app.route("/fixedPoint",methods=['POST'])
 def fixPoint():
@@ -84,7 +84,12 @@ def fixPoint():
     a = data["a"]
     tol = data["tol"]
     iters = data["iters"]
-    return dict(fixedPoint(a,tol,iters))
+    f = data["f"]
+    f = defFunction(f, "f")
+    g = data["g"]
+    g = defFunction(g, "g")
+    method = dict(fixedPoint(a,tol,iters))
+    return {"f": f, "g": g, "method": method}
 
 @app.route("/secant",methods=['POST'])
 def seca():
@@ -93,7 +98,10 @@ def seca():
     b = data["b"]
     tol = data["tol"]
     iters = data["iters"]
-    return dict(secant(a,b,tol,iters))
+    f = data["f"]
+    f = defFunction(f, "f")
+    method =  dict(secant(a,b,tol,iters))
+    return {"f": f, "method": method}
 
 @app.route("/multipleRoots",methods=['POST'])
 def multiRoot():
@@ -101,7 +109,14 @@ def multiRoot():
     a = data["a"]
     tol = data["tol"]
     iters = data["iters"]
-    return dict(multipleRoots(a,tol,iters))
+    f = data["f"]
+    f = defFunction(f, "f")
+    df = data["df"]
+    df = defFunction(df,"df")
+    ddf = data["ddf"]
+    ddf = defFunction(ddf,"ddf")
+    data = dict(multipleRoots(a,tol,iters))
+    return {"f" : f, "df" : df, "ddf" : ddf, "method" : data}
 
 @app.route("/gaussSimple",methods=['POST'])
 def gaussSimp():
@@ -170,6 +185,28 @@ def so():
     iters = data["iters"]
     w = data["w"]
     return dict(sor(a, b,x,2,tol,iters,w))
+
+
+@app.route("/newtonInter",methods=['POST'])
+def newtonInter():
+    data = request.json
+    x = data["x"]
+    y = data["y"]
+    return dict(newtonInterpolation(x,y))
+
+@app.route("/vandermonde",methods=['POST'])
+def vander():
+    data = request.json
+    x = data["x"]
+    y = data["y"]
+    return dict(vandermonde(x,y))
+
+@app.route("/lagrange",methods=['POST'])
+def lagrange():
+    data = request.json
+    x = data["x"]
+    y = data["y"]
+    return dict(lagrangeInterpolation(x,y))
 
 # Cholesky needs repairings.
 

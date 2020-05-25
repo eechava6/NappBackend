@@ -2,11 +2,11 @@
 import numpy as np
 import ast
 import json
-from utils import regresiveSustitution, progressiveSustitution, swapRowsSpecial
-from utils import rowOps
-from utils import getMultipliers
-from utils import swapRows
-from utils import isSquared
+from methods.utils import regresiveSustitution, progressiveSustitution, swapRowsSpecial
+from methods.utils import rowOps
+from methods.utils import getMultipliers
+from methods.utils import swapRows
+from methods.utils import isSquared
 def luPivot(A,b):
     A = ast.literal_eval(A)
     b = ast.literal_eval(b)
