@@ -17,7 +17,7 @@ from methods.newtonInterpolation import newtonInterpolation
 from methods.vandermonde import  vandermonde
 from methods.lagrangeInterpolation import lagrangeInterpolation
 
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 from utils.defFunction import defFunction
 
@@ -43,12 +43,12 @@ def incSearch():
         f = data["f"]
         f = defFunction(f,"f")
     except:
-        return  {"error" : True, "source" : "function definition"}
+        return  {"error" : True, "source" : "Error in function definition (Syntax)"}
     try:
         method = dict(incrementalSearch(start,step,end))
         return { "f" : f, "method" : method}
     except:
-        return {"error": True, "source": "method or function evaluation"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/bisection",methods=['POST'])
 def bisect():
@@ -61,13 +61,13 @@ def bisect():
         f = data["f"]
         f = defFunction(f,"f")
     except:
-        return  {"error" : True, "source" : "function definition"}
+        return  {"error" : True, "source" : "Error in function definition (Syntax)"}
     try:
         method = dict(bisection(a,b,tol,iters))
         status = method["error"]
         return {"f": f, "method": method, "error" : status}
     except:
-        return {"error": True, "source": "method or function evaluation"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/falseRule",methods=['POST'])
 def falRule():
@@ -80,13 +80,13 @@ def falRule():
         f = data["f"]
         f = defFunction(f,"f")
     except:
-        return {"error": True, "source": "function definition"}
+        return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = falseRule(a,b,tol,iters)
         status = method["error"]
         return {"f": f, "method": method, "error" : status}
     except:
-        return {"error": True, "source": "method or function evaluation"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/newton",methods=['POST'])
 def newt():
@@ -100,13 +100,13 @@ def newt():
         df = data["df"]
         df = defFunction(df,"df")
     except:
-        return {"error": True, "source": "function definition"}
+        return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = dict(newton(a,tol,iters))
         status = method["error"]
         return  {"f": f, "df": df, "method": method, "error" : status}
     except:
-        return {"error": True, "source": "method or function evaluation"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/fixedPoint",methods=['POST'])
 def fixPoint():
@@ -120,13 +120,13 @@ def fixPoint():
         g = data["g"]
         g = defFunction(g, "g")
     except:
-        return {"error": True, "source": "function definition"}
+        return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = dict(fixedPoint(a,tol,iters))
         status = method["error"]
         return {"f": f, "g": g, "method": method, "error" : status}
     except:
-        return {"error": True, "source": "method or function evaluation"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 
 @app.route("/secant",methods=['POST'])
@@ -140,13 +140,13 @@ def seca():
         f = data["f"]
         f = defFunction(f, "f")
     except:
-        return {"error": True, "source": "function definition"}
+        return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method =  dict(secant(a,b,tol,iters))
         status = method["error"]
         return {"f": f, "method": method, "error" : status}
     except:
-        return {"error": True, "source": "method or function evaluation"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/multipleRoots",methods=['POST'])
 def multiRoot():
@@ -162,13 +162,13 @@ def multiRoot():
         ddf = data["ddf"]
         ddf = defFunction(ddf,"ddf")
     except:
-        return {"error": True, "source": "function definition"}
+        return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = dict(multipleRoots(a,tol,iters))
         status = method["error"]
         return {"f" : f, "df" : df, "ddf" : ddf, "method" : method, "error" : status}
     except:
-        return {"error": True, "source": "method or function evaluation"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/gaussSimple",methods=['POST'])
 def gaussSimp():
@@ -178,7 +178,7 @@ def gaussSimp():
     try:
         return dict(gaussSimple(a,b))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/gaussPartial",methods=['POST'])
 def gaussPart():
@@ -189,7 +189,7 @@ def gaussPart():
     try:
         return dict(partialPivot(a, b))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/gaussTotal",methods=['POST'])
 def gaussTot():
@@ -200,7 +200,7 @@ def gaussTot():
     try:
         return dict(gaussTotal(a, b))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/luSimple",methods=['POST'])
 def luSimp():
@@ -210,7 +210,7 @@ def luSimp():
     try:
         return dict(luSimple(a, b))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/luPivot",methods=['POST'])
 def luPiv():
@@ -220,7 +220,7 @@ def luPiv():
     try:
         return dict(luPivot(a, b))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 # Crout needs repairings
 
@@ -235,7 +235,7 @@ def jacob():
     try:
         return dict(jacobi(a, b,x,2,tol,iters))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/gaussSeidel",methods=['POST'])
 def gaussSeid():
@@ -248,7 +248,7 @@ def gaussSeid():
     try:
         return dict(gaussSeidel(a, b,x,2,tol,iters))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/sor",methods=['POST'])
 def so():
@@ -262,7 +262,7 @@ def so():
     try:
         return dict(sor(a, b,x,2,tol,iters,w))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 
 @app.route("/newtonInter",methods=['POST'])
@@ -273,7 +273,7 @@ def newtonInter():
     try:
         return dict(newtonInterpolation(x,y))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/vandermonde",methods=['POST'])
 def vander():
@@ -283,7 +283,7 @@ def vander():
     try:
         return dict(vandermonde(x,y))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 @app.route("/lagrange",methods=['POST'])
 def lagrange():
@@ -293,7 +293,7 @@ def lagrange():
     try:
         return dict(lagrangeInterpolation(x,y))
     except:
-        return {"error": True, "source": "method evaluation"}
+        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
 
 # Cholesky needs repairings.
 
