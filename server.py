@@ -106,7 +106,7 @@ def newt():
         err = method["error"]
         return  {"f": f, "df": df, "method": method, "error" : err, "status" : method["status"]}
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation - Maybe 0/0 or (f(a) * f(b)) < 0?"}
 
 @app.route("/fixedPoint",methods=['POST'])
 def fixPoint():

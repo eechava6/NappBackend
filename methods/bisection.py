@@ -8,6 +8,8 @@ def bisection(a, b, tolerance, max_iterators):
     a_evaluated_f = float(f(a))
     b_evaluated_f = float(f(b))
     #ToDo Add exceptions a=b && a*b > 1
+    if a_evaluated_f == b_evaluated_f:
+        return {"status" : "Error A == B" , "error" : True}
     if a_evaluated_f == 0:
         return {"status" : "root on A" , "error" : False}
     elif b_evaluated_f == 0:
@@ -28,6 +30,11 @@ def bisection(a, b, tolerance, max_iterators):
         }
         return_list.append(row)
         count += 1
+        if(y_middle == 0):
+            res["iters"] = return_list
+            res["status"] = 'Root found! ;)'
+            res["error"] = False
+            return res
         while error > tolerance and y_middle != 0 and count <= max_iterators:
             if a_evaluated_f * y_middle < 0:
 
