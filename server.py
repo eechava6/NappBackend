@@ -25,7 +25,6 @@ from views.home import methods
 
 from flask import Flask, request
 
-
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -64,8 +63,8 @@ def bisect():
         return  {"error" : True, "source" : "Error in function definition (Syntax)"}
     try:
         method = dict(bisection(a,b,tol,iters))
-        status = method["error"]
-        return {"f": f, "method": method, "error" : status}
+        err = method["error"]
+        return {"f": f, "method": method, "error" : err, "status" : method["status"]}
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
@@ -83,8 +82,9 @@ def falRule():
         return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = falseRule(a,b,tol,iters)
-        status = method["error"]
-        return {"f": f, "method": method, "error" : status}
+        err = method["error"]
+
+        return {"f": f, "method": method, "error" : err, "status" : method["status"]}
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
@@ -103,8 +103,8 @@ def newt():
         return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = dict(newton(a,tol,iters))
-        status = method["error"]
-        return  {"f": f, "df": df, "method": method, "error" : status}
+        err = method["error"]
+        return  {"f": f, "df": df, "method": method, "error" : err, "status" : method["status"]}
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
@@ -123,8 +123,8 @@ def fixPoint():
         return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = dict(fixedPoint(a,tol,iters))
-        status = method["error"]
-        return {"f": f, "g": g, "method": method, "error" : status}
+        err = method["error"]
+        return {"f": f, "g": g, "method": method, "error" : err, "status" : method["status"]}
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
@@ -143,8 +143,8 @@ def seca():
         return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method =  dict(secant(a,b,tol,iters))
-        status = method["error"]
-        return {"f": f, "method": method, "error" : status}
+        err = method["error"]
+        return {"f": f, "method": method, "error" : err, "status" : method["status"]}
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
@@ -165,8 +165,8 @@ def multiRoot():
         return {"error": True, "source": "Error in function definition (Syntax)"}
     try:
         method = dict(multipleRoots(a,tol,iters))
-        status = method["error"]
-        return {"f" : f, "df" : df, "ddf" : ddf, "method" : method, "error" : status}
+        err = method["error"]
+        return {"f" : f, "df" : df, "ddf" : ddf, "method" : method, "error" : err, "status" : method["status"]}
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
