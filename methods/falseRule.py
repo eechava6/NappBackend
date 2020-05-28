@@ -15,6 +15,14 @@ def falseRule (xi,xs,tol,max_iter):
             })
     count = 2
     error = tol + 1
+    if float(xi) == float(xs):
+        return {"status" : "Error A == B" , "error" : True}
+    if (f_xr == 0):
+        res["iters"] = return_list
+        res["status"] = 'Root found! ;)'
+        res["error"] = False
+        return res
+
     while error > tol and count <= max_iter:
         xi = xr if (f_xr < 0) else xi
         xs = xr if (f_xr > 0) else xs

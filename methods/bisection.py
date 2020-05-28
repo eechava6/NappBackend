@@ -7,8 +7,7 @@ def bisection(a, b, tolerance, max_iterators):
     return_list = []
     a_evaluated_f = float(f(a))
     b_evaluated_f = float(f(b))
-    #ToDo Add exceptions a=b && a*b > 1
-    if a_evaluated_f == b_evaluated_f:
+    if float(a) == float(b):
         return {"status" : "Error A == B" , "error" : True}
     if a_evaluated_f == 0:
         return {"status" : "root on A" , "error" : False}

@@ -12,6 +12,12 @@ def newton(x0, tolerance, max_iterations):
     error = tolerance + 1
     return_list.append({"count": count, "xSub0": x0, "f_x": f_x, "df_x": df_x, "error": 0})
 
+    if (f_x == 0):
+        res["iters"] = return_list
+        res["status"] = 'Root found! ;)'
+        res["error"] = False
+        return res
+    
     while error > tolerance and count < max_iterations and f_x != 0 and df_x != 0:
         next_x = x0 - (f_x / df_x)
         f_x = f(next_x)

@@ -16,6 +16,11 @@ def fixedPoint (xi,tol,max_iter):
             })
     count = 1
     error = tol + 1
+    if (f_xi == 0):
+        res["iters"] = return_list
+        res["status"] = 'Root found! ;)'
+        res["error"] = False
+        return res
     while error > tol and count <= max_iter:
         xn = g_xi
         g_xi = g(xn)
