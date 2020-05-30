@@ -18,7 +18,7 @@ def luSimple(A,b):
 
     # Validates if matrix is squared
     if(not isSquared(A)):
-        res["status"] =  'Not square + 1 col matrix!'
+        res["status"] =  'Not square matrix!'
         res["error"] = True
         return res
     # Determines if det is 0
@@ -36,6 +36,7 @@ def luSimple(A,b):
         #Validates if A[i][i] is 0 and swap rows to first row in submatrix with col val != 0
         if(A[nCol][nCol] == 0):
             res["status"] = '0 in diagonal!'
+            res["error"] = True
             return res
 
         #Calculates the multipliers

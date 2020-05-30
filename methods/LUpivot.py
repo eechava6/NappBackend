@@ -18,7 +18,7 @@ def luPivot(A,b):
     
     #Validates if matrix is squared
     if(not isSquared(A)):
-        res["status"] =  'Not square + 1 col matrix!'
+        res["status"] =  'Not square matrix!'
         res["error"] = True
         return res
     # Determines if det is 0
