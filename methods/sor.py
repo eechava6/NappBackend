@@ -11,14 +11,14 @@ def sor(A, b, x, norm, tol, iteMax, w):
     D = np.diag(np.diag(A))
     L = (-1 * np.tril(A))+D
     U = (-1 * np.triu(A))+D
-    if(0 in np.diag(A)): return {"status" : "diagonal has 0", "error" : True}
+    if(0 in np.diag(A)): return {"source" : "diagonal has 0", "error" : True}
     ite = 0
     #Change here for jacobi, Sor and Gauss seidel
     T = np.dot(np.linalg.inv(D-(w*L)),(1-w)*D+w*U)
     C = w*np.dot(np.linalg.inv(D-(w*L)),b)
     #End changes
     spectRad = np.max(np.absolute(np.linalg.eigvals(T)))
-    if(spectRad > 1): return {"status" : "spectral radious > 1", "error" : True}
+    if(spectRad > 1): return {"source" : "spectral radious > 1", "error" : True}
     #Saving into result dict
     result['TMatrix'] = json.dumps(T.tolist())
     result['CMatrix'] = json.dumps(C.tolist())

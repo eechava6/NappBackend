@@ -22,17 +22,17 @@ def cholesky(A, b):
     pivots = []
     #Validates if is positive defined
     if not (np.all(np.linalg.eigvals(A) > 0) == True):
-        res["status"] = 'Not positive defined matrix!'
+        res["source"] = 'Not positive defined matrix!'
         res["error"] = True
         return res
     #Validates if matrix is squared
     if(not isSquared(A)):
-        res["status"] =  'Not square matrix!'
+        res["source"] =  'Not square matrix!'
         res["error"] = True
         return res
     # Determines if det is 0
     if(np.linalg.det(A) == 0):
-        res["status"] =  'Determinant is 0'
+        res["source"] =  'Determinant is 0'
         res["error"] = True
         return res
 

@@ -18,12 +18,12 @@ def luSimple(A,b):
 
     # Validates if matrix is squared
     if(not isSquared(A)):
-        res["status"] =  'Not square matrix!'
+        res["source"] =  'Not square matrix!'
         res["error"] = True
         return res
     # Determines if det is 0
     if(np.linalg.det(A) == 0):
-        res["status"] =  'Determinant is 0'
+        res["source"] =  'Determinant is 0'
         res["error"] = True
         return res
     times = A[:, 0].size
@@ -35,7 +35,7 @@ def luSimple(A,b):
         L[nCol, nCol] = 1
         #Validates if A[i][i] is 0 and swap rows to first row in submatrix with col val != 0
         if(A[nCol][nCol] == 0):
-            res["status"] = '0 in diagonal!'
+            res["source"] = '0 in diagonal!'
             res["error"] = True
             return res
 

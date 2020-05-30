@@ -18,12 +18,12 @@ def luPivot(A,b):
     
     #Validates if matrix is squared
     if(not isSquared(A)):
-        res["status"] =  'Not square matrix!'
+        res["source"] =  'Not square matrix!'
         res["error"] = True
         return res
     # Determines if det is 0
     if(np.linalg.det(A) == 0):
-        res["status"] =  'Determinant is 0'
+        res["source"] =  'Determinant is 0'
         res["error"] = True
         return res
 

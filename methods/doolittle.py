@@ -17,12 +17,12 @@ def doolittle(A, b):
     diag=1
     #Validates if matrix is squared
     if(not isSquared(A)):
-        res["status"] =  'Not square matrix!'
+        res["source"] =  'Not square matrix!'
         res["error"] = True
         return res
     # Determines if det is 0
     if(np.linalg.det(A) == 0):
-        res["status"] =  'Determinant is 0'
+        res["source"] =  'Determinant is 0'
         res["error"] = True
         return res
 #    L,U = inicializa(n,0)
@@ -54,7 +54,7 @@ def doolittle(A, b):
         Uz = np.concatenate([U, z.reshape((U.shape[0], 1))], axis=1)
         results = regresiveSustitution(Uz, n - 1, indexes)
     else:
-        res["status"] = 'Infinite solutions'
+        res["source"] = 'Infinite solutions'
         res["error"] = True
         return res
 

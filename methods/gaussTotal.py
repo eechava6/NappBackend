@@ -20,12 +20,12 @@ def gaussTotal(A,b):
     A = np.concatenate([A, b.reshape((A.shape[0], 1))], axis=1)
     # Validates if matrix is squared
     if not isSquared(np.delete(A, -1, axis=1)):
-        res["status"] =  'Not square + 1 col matrix!'
+        res["source"] =  'Not square + 1 col matrix!'
         res["error"] = True
         return res
     # Determines if det is 0
     if (np.linalg.det(np.delete(A, -1, axis=1)) == 0):
-        res["status"] =  'Determinant is 0'
+        res["source"] =  'Determinant is 0'
         res["error"] = True
         return res
     times = A[:, 0].size - 1
