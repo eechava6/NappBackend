@@ -16,6 +16,20 @@ def regresiveSustitution(Ab,n, indexes = 0):
             solutions.append(['x%s' %(i),xi])
     return solutions[::-1]
 
+def customRegresiveSustitution(Ab,n, indexes = 0):
+    solutions = []
+    Ab= np.array(Ab,float)
+    for i in range(n,-1,-1):
+        sum = 0
+        for p in range(i+1,n+1):
+            sum = sum + Ab[i][p] * solutions[n-p][1]
+        xi = (Ab[i][n+1] - sum)/Ab[i][i]
+        if(not isinstance(indexes,int)):
+            solutions.append([(indexes[i]),xi])
+        else:
+            solutions.append([i,xi])
+    return solutions[::-1]
+
 def regresiveSustitutions(Ab,n, indexes = 0):
     solutions = []
     Ab= np.array(Ab,float)
@@ -82,3 +96,44 @@ def swapRowsSpecial(A,nCol,nInd):
 
 def isSquared(A):
     return all(len(row) == len(A) for row in A)
+
+def gaussTotal(A,b):
+    res = {}
+    # Convert into numpys arr
+    A = np.array(A).astype(float)
+    b = np.array(b).astype(float)
+    # Appends last column to A matrix
+    A = np.concatenate([A, b.reshape((A.shape[0], 1))], axis=1)
+    # Validates if matrix is squared
+    if not isSquared(np.delete(A, -1, axis=1)):
+        res["source"] =  'Not square + 1 col matrix!'
+        res["error"] = True
+        return res
+    # Determines if det is 0
+    if (np.linalg.det(np.delete(A, -1, axis=1)) == 0):
+        res["source"] =  'Determinant is 0'
+        res["error"] = True
+        return res
+    times = A[:, 0].size - 1
+    indexes = np.arange(0, times+1)
+    for nCol in range(0,times):
+        absMat = np.absolute(A[nCol:,nCol:-1])
+        mVal = np.amax(absMat)
+        mRow = np.where(absMat == mVal)[0][0]
+        mCol = np.where(absMat == mVal)[1][0]
+
+        if (A[nCol][nCol] < mVal):
+            if(nCol + mRow != nCol):
+                A, indexes = swapRows(A, nCol, mRow, indexes)
+            if(nCol + mCol != nCol):
+                A = swapCols(A, nCol, mCol)
+
+        multipliers = getMultipliers(A, nCol)
+        # Validates if any multiplier is different to zero
+        if (not np.count_nonzero(multipliers) == 0):
+            A = rowOps(A, nCol, multipliers)
+
+    values = customRegresiveSustitution(A,times,indexes)
+    res["values"] = values
+    res["error"] = False
+    return res

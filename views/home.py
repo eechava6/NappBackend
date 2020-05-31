@@ -22,4 +22,5 @@ def methods():
             <p style="text-align: center;">/cholesky *new*</p> 
             <p style="text-align: center;">/doolittle *new*</p>
             <p style="text-align: center;">/crout *pending*</p> 
+            <p style="text-align: center;">/linSpline *new*</p> 
              """

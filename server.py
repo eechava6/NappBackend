@@ -2,6 +2,7 @@ from methods.doolittle import doolittle
 from methods.cholesky import cholesky
 from methods.incrementalSearch import incrementalSearch
 from methods.bisection import bisection
+from methods.linearSpline import linearSpline
 from methods.newton import newton
 from methods.falseRule import falseRule
 from methods.fixedPoint import fixedPoint
@@ -180,7 +181,7 @@ def gaussSimp():
     try:
         return dict(gaussSimple(a,b))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/gaussPartial",methods=['POST'])
 def gaussPart():
@@ -191,7 +192,7 @@ def gaussPart():
     try:
         return dict(partialPivot(a, b))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/gaussTotal",methods=['POST'])
 def gaussTot():
@@ -202,7 +203,7 @@ def gaussTot():
     try:
         return dict(gaussTotal(a, b))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/luSimple",methods=['POST'])
 def luSimp():
@@ -212,7 +213,7 @@ def luSimp():
     try:
         return dict(luSimple(a, b))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/luPivot",methods=['POST'])
 def luPiv():
@@ -222,7 +223,7 @@ def luPiv():
     try:
         return dict(luPivot(a, b))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/doolittle",methods=['POST'])
 def dolit():
@@ -232,7 +233,7 @@ def dolit():
     try:
         return dict(doolittle(a, b))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 
 @app.route("/cholesky",methods=['POST'])
@@ -241,8 +242,10 @@ def chol():
     a = data["a"]
     b = data["b"]
 
-    return dict(cholesky(a, b))
-    #return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+    try:
+        return dict(cholesky(a, b))
+    except:
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 # Crout needs repairings
 
@@ -257,7 +260,7 @@ def jacob():
     try:
         return dict(jacobi(a, b,x,2,tol,iters))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/gaussSeidel",methods=['POST'])
 def gaussSeid():
@@ -270,7 +273,7 @@ def gaussSeid():
     try:
         return dict(gaussSeidel(a, b,x,2,tol,iters))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/sor",methods=['POST'])
 def so():
@@ -284,7 +287,7 @@ def so():
     try:
         return dict(sor(a, b,x,2,tol,iters,w))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 
 @app.route("/newtonInter",methods=['POST'])
@@ -295,7 +298,7 @@ def newtonInter():
     try:
         return dict(newtonInterpolation(x,y))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/vandermonde",methods=['POST'])
 def vander():
@@ -305,7 +308,7 @@ def vander():
     try:
         return dict(vandermonde(x,y))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 @app.route("/lagrange",methods=['POST'])
 def lagrange():
@@ -315,10 +318,17 @@ def lagrange():
     try:
         return dict(lagrangeInterpolation(x,y))
     except:
-        return {"error": True, "source": "Error in method evaluation evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
-
-# Cholesky needs repairings.
+@app.route("/linSpline",methods=['POST'])
+def linspline():
+    data = request.json
+    x = data["x"]
+    y = data["y"]
+    try:
+        return dict(linearSpline(x,y))
+    except:
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug = False)
