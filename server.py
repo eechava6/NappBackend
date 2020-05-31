@@ -1,3 +1,4 @@
+from methods.cuadraticSpline import cuadraticSpline
 from methods.doolittle import doolittle
 from methods.cholesky import cholesky
 from methods.incrementalSearch import incrementalSearch
@@ -327,6 +328,16 @@ def linspline():
     y = data["y"]
     try:
         return dict(linearSpline(x,y))
+    except:
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+
+@app.route("/cuadraSpline",methods=['POST'])
+def cuadraspline():
+    data = request.json
+    x = data["x"]
+    y = data["y"]
+    try:
+        return dict(cuadraticSpline(x,y))
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 

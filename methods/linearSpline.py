@@ -2,7 +2,8 @@ import ast
 import json
 
 import numpy as np
-from methods.utils import gaussTotal
+from methods.utils import gaussPartial
+
 
 def linearSpline(x, y):
     x = ast.literal_eval(x)
@@ -31,10 +32,11 @@ def linearSpline(x, y):
     for val in range(1,n-1):
         A[n-1+val][2*val-2:2*val+2] = [x[val], 1, -x[val], -1]
 
-    values = gaussTotal(A,b)
+    values = gaussPartial(A,b)
     if values["error"]:
         res["error"] = True
         res["source"] = values["source"]
+        return res
 
     vals = sorted(values["values"], key = lambda x:  x[0])
     pols = []

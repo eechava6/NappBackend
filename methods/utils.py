@@ -79,13 +79,14 @@ def rowOps(Ab,nCol,multipliers):
 def swapRows(A,nCol,nInd,indexes, index = True):
     A[[nCol, nInd+nCol]] = A[[nInd+nCol , nCol]]
     if(index):
-        indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol] 
+        pass
+        #indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol]
     return A,indexes
+
 
 def swapCols(A,Col1,Col2):
     for k in range(len(A)):
         A[k][Col1], A[k][Col2+Col1] = A[k][Col2+Col1], A[k][Col1]
-
     return A
 
 def swapRowsSpecial(A,nCol,nInd):
@@ -97,7 +98,7 @@ def swapRowsSpecial(A,nCol,nInd):
 def isSquared(A):
     return all(len(row) == len(A) for row in A)
 
-def gaussTotal(A,b):
+def gaussPartial(A,b):
     res = {}
     # Convert into numpys arr
     A = np.array(A).astype(float)
@@ -117,21 +118,16 @@ def gaussTotal(A,b):
     times = A[:, 0].size - 1
     indexes = np.arange(0, times+1)
     for nCol in range(0,times):
-        absMat = np.absolute(A[nCol:,nCol:-1])
-        mVal = np.amax(absMat)
-        mRow = np.where(absMat == mVal)[0][0]
-        mCol = np.where(absMat == mVal)[1][0]
-
-        if (A[nCol][nCol] < mVal):
-            if(nCol + mRow != nCol):
-                A, indexes = swapRows(A, nCol, mRow, indexes)
-            if(nCol + mCol != nCol):
-                A = swapCols(A, nCol, mCol)
-
-        multipliers = getMultipliers(A, nCol)
-        # Validates if any multiplier is different to zero
-        if (not np.count_nonzero(multipliers) == 0):
-            A = rowOps(A, nCol, multipliers)
+        absCol = np.absolute(A[nCol:,nCol])
+        mVal = np.amax(absCol)
+        #Validates if there a is biggest number than A[i][i] and swap rows
+        if(A[nCol][nCol] < mVal):
+            mInd = np.argmax(absCol)
+            A,indexes = swapRows(A,nCol,mInd,indexes)
+        multipliers = getMultipliers(A,nCol)
+        #Validates if any multiplier is different to zero
+        if(not np.count_nonzero(multipliers) == 0):
+            A = rowOps(A,nCol,multipliers)
 
     values = customRegresiveSustitution(A,times,indexes)
     res["values"] = values
