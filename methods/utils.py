@@ -83,6 +83,11 @@ def swapRows(A,nCol,nInd,indexes, index = True):
         #indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol]
     return A,indexes
 
+def swapRows2(A,nCol,nInd,indexes, index = True):
+    A[[nCol, nInd+nCol]] = A[[nInd+nCol , nCol]]
+    if(index):
+        indexes[nCol], indexes[nInd+nCol] = indexes[nInd+nCol], indexes[nCol]
+    return A,indexes
 
 def swapCols(A,Col1,Col2):
     for k in range(len(A)):

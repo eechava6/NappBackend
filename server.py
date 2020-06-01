@@ -1,3 +1,4 @@
+from methods.crout import crout
 from methods.cuadraticSpline import cuadraticSpline
 from methods.cubicSpline import cubicSpline
 from methods.doolittle import doolittle
@@ -248,6 +249,15 @@ def chol():
         return dict(cholesky(a, b))
     except:
         return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+
+@app.route("/crout",methods=['POST'])
+def crou():
+    data = request.json
+    a = data["a"]
+    b = data["b"]
+
+
+    return dict(crout(a, b))
 
 # Crout needs repairings
 

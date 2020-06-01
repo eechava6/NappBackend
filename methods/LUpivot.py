@@ -2,7 +2,7 @@
 import numpy as np
 import ast
 import json
-from methods.utils import regresiveSustitution, progressiveSustitution, swapRowsSpecial
+from methods.utils import regresiveSustitution, progressiveSustitution, swapRowsSpecial, swapRows2
 from methods.utils import rowOps
 from methods.utils import getMultipliers
 from methods.utils import swapRows
@@ -29,8 +29,6 @@ def luPivot(A,b):
 
     times = A[:, 0].size
     indexes = np.arange(0, times)
-
-
     #matrix L y U
     L = np.identity(times)
     P = np.identity(times)
@@ -47,7 +45,7 @@ def luPivot(A,b):
 
         if(A[nCol][nCol] < mVal):
             A,indexes = swapRows(A,nCol,mInd,indexes)
-            P,b = swapRows(P,nCol,mInd,b)
+            P,b = swapRows2(P,nCol,mInd,b)
             swap = True
 
         multipliers = getMultipliers(A,nCol)
