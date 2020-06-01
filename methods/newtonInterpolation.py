@@ -13,6 +13,8 @@ def newtonInterpolation(x, y):
     """ Creates Newton table and extracts coefficients """
     for j in range(1, n):
         column = []
+        for j in range(j,0,-1):
+            column.append(0)
         for i in range(n - j):
             # create table by updating other columns
             table[i][j] = (table[i + 1][j - 1] - table[i][j - 1]) / (x[i + j] - x[i])
