@@ -256,8 +256,10 @@ def crou():
     a = data["a"]
     b = data["b"]
 
-
-    return dict(crout(a, b))
+    try:
+        return dict(crout(a, b))
+    except:
+        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
 
 # Crout needs repairings
 
