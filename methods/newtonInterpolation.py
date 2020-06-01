@@ -9,7 +9,7 @@ def newtonInterpolation(x, y):
     table[::, 0] = y  # first column is y
 
     results = {"table": [], "coefficient": []}
-    results["table"].append({"column": y, "index": 0})
+    results["table"].append(y)
     """ Creates Newton table and extracts coefficients """
     for j in range(1, n):
         column = []
@@ -19,7 +19,8 @@ def newtonInterpolation(x, y):
             # create table by updating other columns
             table[i][j] = (table[i + 1][j - 1] - table[i][j - 1]) / (x[i + j] - x[i])
             column.append( table[i][j])
-        results["table"].append({"column" : column, "index" : j})
+        results["table"].append("index")
+
 
     coeff = table[0]  # return first row
     for c in coeff:

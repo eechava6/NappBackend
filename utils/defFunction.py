@@ -1,6 +1,6 @@
 import methods.function as function
 def defFunction(strFunc,type):
-    newStr = strFunc.replace("e","E").replace("pi","PI")
+    newStr = strFunc.replace("e","E^").replace("pi","PI")
     func = ""
     if(type == "f"):
         func = function.fDef(newStr)
