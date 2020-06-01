@@ -13,7 +13,7 @@ def newtonInterpolation(x, y):
     """ Creates Newton table and extracts coefficients """
     for j in range(1, n):
         column = []
-        for j in range(j,0,-1):
+        for i in range(j):
             column.append(0)
         for i in range(n - j):
             # create table by updating other columns
