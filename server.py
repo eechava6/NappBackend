@@ -53,7 +53,7 @@ def incSearch():
         method = dict(incrementalSearch(start,step,end))
         return { "f" : f, "method" : method}
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/bisection",methods=['POST'])
 def bisect():
@@ -72,7 +72,7 @@ def bisect():
         err = method["error"]
         return {"f": f, "method": method, "error" : err, "source" : method["status"]}
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/falseRule",methods=['POST'])
 def falRule():
@@ -92,7 +92,7 @@ def falRule():
 
         return {"f": f, "method": method, "error" : err, "source" : method["status"]}
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/newton",methods=['POST'])
 def newt():
@@ -132,7 +132,7 @@ def fixPoint():
         err = method["error"]
         return {"f": f, "g": g, "method": method, "error" : err, "source" : method["status"]}
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 
 @app.route("/secant",methods=['POST'])
@@ -152,7 +152,7 @@ def seca():
         err = method["error"]
         return {"f": f, "method": method, "error" : err, "source" : method["status"]}
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/multipleRoots",methods=['POST'])
 def multiRoot():
@@ -174,7 +174,7 @@ def multiRoot():
         err = method["error"]
         return {"f" : f, "df" : df, "ddf" : ddf, "method" : method, "error" : err, "source" : method["status"]}
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/gaussSimple",methods=['POST'])
 def gaussSimp():
@@ -184,7 +184,7 @@ def gaussSimp():
     try:
         return dict(gaussSimple(a,b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/gaussPartial",methods=['POST'])
 def gaussPart():
@@ -195,7 +195,7 @@ def gaussPart():
     try:
         return dict(partialPivot(a, b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/gaussTotal",methods=['POST'])
 def gaussTot():
@@ -206,7 +206,7 @@ def gaussTot():
     try:
         return dict(gaussTotal(a, b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/luSimple",methods=['POST'])
 def luSimp():
@@ -216,7 +216,7 @@ def luSimp():
     try:
         return dict(luSimple(a, b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/luPivot",methods=['POST'])
 def luPiv():
@@ -226,7 +226,7 @@ def luPiv():
     try:
         return dict(luPivot(a, b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/doolittle",methods=['POST'])
 def dolit():
@@ -236,7 +236,7 @@ def dolit():
     try:
         return dict(doolittle(a, b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 
 @app.route("/cholesky",methods=['POST'])
@@ -248,7 +248,7 @@ def chol():
     try:
         return dict(cholesky(a, b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/crout",methods=['POST'])
 def crou():
@@ -259,7 +259,7 @@ def crou():
     try:
         return dict(crout(a, b))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 # Crout needs repairings
 
@@ -274,7 +274,7 @@ def jacob():
     try:
         return dict(jacobi(a, b,x,2,tol,iters))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/gaussSeidel",methods=['POST'])
 def gaussSeid():
@@ -287,7 +287,7 @@ def gaussSeid():
     try:
         return dict(gaussSeidel(a, b,x,2,tol,iters))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/sor",methods=['POST'])
 def so():
@@ -301,7 +301,7 @@ def so():
     try:
         return dict(sor(a, b,x,2,tol,iters,w))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 
 @app.route("/newtonInter",methods=['POST'])
@@ -312,7 +312,7 @@ def newtonInter():
     try:
         return dict(newtonInterpolation(x,y))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/vandermonde",methods=['POST'])
 def vander():
@@ -322,7 +322,7 @@ def vander():
     try:
         return dict(vandermonde(x,y))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/lagrange",methods=['POST'])
 def lagrange():
@@ -332,7 +332,7 @@ def lagrange():
     try:
         return dict(lagrangeInterpolation(x,y))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/linSpline",methods=['POST'])
 def linspline():
@@ -342,7 +342,7 @@ def linspline():
     try:
         return dict(linearSpline(x,y))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/cuadraSpline",methods=['POST'])
 def cuadraspline():
@@ -352,7 +352,7 @@ def cuadraspline():
     try:
         return dict(cuadraticSpline(x,y))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 @app.route("/cubicSpline",methods=['POST'])
 def cubspline():
@@ -362,7 +362,7 @@ def cubspline():
     try:
         return dict(cubicSpline(x,y))
     except:
-        return {"error": True, "source": "Error in method or function evaluation (Maybe 0/0)?"}
+        return {"error": True, "source": "Error in method or function evaluation"}
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug = False)
