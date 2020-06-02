@@ -50,6 +50,10 @@ def cubicSpline(x, y):
 
     pols = []
     for val in range(0,len(vals)-3,4):
+        vals[val][1] =  round(vals[val][1],4)
+        vals[val + 1][1] =  round( vals[val + 1][1],4)
+        vals[val + 2][1] = round(vals[val + 2][1],4)
+        vals[val + 3][1] = round(vals[val + 3][1],4)
         pol = "{0}*x^3+{1}*x^2+{2}*x+{3}".format(vals[val][1], vals[val+1][1],vals[val+2][1],vals[val+3][1])
         pol = pol.replace(" ", "").replace("--", "+").replace("++", "+").replace("+-", "-").replace("-+", "-")
         S.append([vals[val][1], vals[val+1][1], vals[val+2][1], vals[val+3][1]])

@@ -41,6 +41,8 @@ def linearSpline(x, y):
     vals = sorted(values["values"], key = lambda x:  x[0])
     pols = []
     for val in range(0,len(vals)-1,2):
+        vals[val][1] =  round(vals[val][1],4)
+        vals[val + 1][1] =  round( vals[val + 1][1],4)
         pol = "{0}*x+{1}".format(vals[val][1], vals[val+1][1])
         pol = pol.replace(" ", "").replace("--", "+").replace("++", "+").replace("+-", "-").replace("-+", "-")
         S.append([vals[val][1], vals[val+1][1]])

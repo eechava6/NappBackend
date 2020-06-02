@@ -47,6 +47,9 @@ def cuadraticSpline(x, y):
 
     pols = []
     for val in range(0,len(vals)-2,3):
+        vals[val][1] =  round(vals[val][1],4)
+        vals[val + 1][1] =  round( vals[val + 1][1],4)
+        vals[val + 2][1] = round(vals[val + 2][1],4)
         pol = "{0}*x^2+{1}*x+{2}".format(vals[val][1], vals[val+1][1],vals[val+2][1])
         pol = pol.replace(" ", "").replace("--", "+").replace("++", "+").replace("+-", "-").replace("-+", "-")
         S.append([vals[val][1], vals[val+1][1], vals[val+2][1]])
