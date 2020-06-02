@@ -19,7 +19,7 @@ def newtonInterpolation(x, y):
             # create table by updating other columns
             table[i][j] = (table[i + 1][j - 1] - table[i][j - 1]) / (x[i + j] - x[i])
             column.append( table[i][j])
-        results["table"].append("index")
+        results["table"].append(column)
 
 
     coeff = table[0]  # return first row
