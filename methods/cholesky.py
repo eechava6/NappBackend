@@ -22,7 +22,7 @@ def cholesky(A, b):
     pivots = []
     #Validates if is positive defined
     if not (np.all(np.linalg.eigvals(A) > 0) == True):
-        res["source"] = 'Not positive defined matrix!'
+        res["source"] = 'Not real solution!'
         res["error"] = True
         return res
     #Validates if matrix is squared
